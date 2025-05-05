@@ -33,13 +33,12 @@ export default function JoinAsDonor({}) {
         await data.makeRequest({method:'post',url:`api/join-as-volunteer`,data:{
          ...form,
         }, error: ``},0)
-
        
         setLoading(false)
         setForm(initial_form)
         toast.success(t('common.data-sent'))
         data._closeAllPopUps()
-        setTimeout(()=>data._showPopUp('join'),200)
+
 
     }catch(e){
       console.log(e.message)

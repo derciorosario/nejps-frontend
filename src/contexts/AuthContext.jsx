@@ -11,7 +11,7 @@ export const AuthProvider = ({ children }) => {
   const [isLoading,setIsLoading]=useState(false)
   const DEV_SERVER_URL = 'http://localhost:3000';
 
-  const APP_BASE_URL  = env == "pro" ? "https://nejps-server.derflash.com":  DEV_SERVER_URL
+  const APP_BASE_URL = env == "pro" ? "https://nejps-server.derflash.com":  DEV_SERVER_URL
 
   function takeToLogin(){
       if(!window.location.href.includes('/login')){
