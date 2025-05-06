@@ -20,8 +20,9 @@
     "common":{
         "age":"Idade",
         "_location":"Morada",
+        "aim":"Objectivo",
         "date-of-birth":"Data de nascimento",
-        "volunteers-title":"Conheça os Nossos Voluntários",
+        "volunteers-title":"Nossos Voluntários de Ouro" ,
         "sending":"A enviar",
         "optional":"Opcional",
         "whatsapp-contact":"Número de whatsapp",

@@ -11,7 +11,6 @@ const breakpointColumnsObj = {
 
 const ImageGallery = () => {
 
-  
   const data=useData()
 
   const [selectedCategory, setSelectedCategory] = useState("all");
@@ -87,7 +86,7 @@ const ImageGallery = () => {
         {filteredImages.map((img, index) => (
           <div
             key={img.id}
-            className="transition-opacity duration-500 ease-in-out opacity-0 animate-fade-in"
+            className="transition-opacity duration-500 ease-in-out opacity-0 animate-fade-in bg-gray-400"
           >
             <img
               src={img.src}

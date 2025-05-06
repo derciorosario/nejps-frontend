@@ -29,7 +29,7 @@ export default function EventCards({events=[]}) {
             </div>
             {event.start_time && <div className="flex items-center text-sm text-gray-600 mt-1">
               <Clock className="w-4 h-4 mr-1" />
-              {event.start_time?.slice(0,5)} {event.end_time ? ` - ${event.end_time?.slice(0,5)}`:''}
+              {event.start_time?.slice(0,5)} {event.end_time!="00:00:00" ? ` - ${event.end_time?.slice(0,5)}`:''}
             </div>}
             <p className="text-gray-700 text-sm mt-4 flex-1">{data.text_l(event['description_'+i18next.language], openItems.includes(event.id) ? 1000000 : 200)}</p>
              {event['description_'+i18next.language]?.length >= 200 &&  <button onClick={()=>{

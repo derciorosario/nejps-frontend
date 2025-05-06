@@ -129,7 +129,7 @@ function App({}) {
                       </section>
 
                       {(data._home_campaigns.data || []).length!=0 && <section className="bg-gray-200 px-10 max-md:px-5">
-                           <div className="md:-translate-y-[25%]">
+                           <div className="md:------translate-y-[25%]">
                                 <HeroDonations showHowToDonateDialog={showHowToDonateDialog} setShowHowToDonateDialog={setShowHowToDonateDialog} showDonationDialog={showDonationDialog} setShowDonationDialog={setShowDonationDialog} YouTubeVideoLink={YouTubeVideoLink} setYouTubeVideoLink={setYouTubeVideoLink}/>
                            </div>
                       </section>}
@@ -174,7 +174,7 @@ function App({}) {
                        </section>
                        
                        {(data._home_campaigns.data || []).length!=0 && <section id="campaigns" className="bg-gray-100 pb-20">
-                         <SectionTopContent title={t('menu.campaigns')} paragraph={t('paragraphs.campaigns')}/>
+                         <SectionTopContent title={t('common.our-campaigns')} paragraph={t('paragraphs.campaigns')}/>
                          <CampaignList campaigns={(data._home_campaigns.data || []).filter((_,_i)=>_i <= 6)} showHowToDonateDialog={showHowToDonateDialog} setShowHowToDonateDialog={setShowHowToDonateDialog} showDonationDialog={showDonationDialog} setShowDonationDialog={setShowDonationDialog}/>
                          {((data._home_campaigns.data || []).length >= 5) && <button onClick={()=>{
                                   navigate('/campaigns')

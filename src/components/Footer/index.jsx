@@ -117,7 +117,7 @@ const Footer = () => {
         <div>
           <h2 className="text-xl font-bold uppercase mb-2">{t('common.recent-campaigns')}</h2>
           <div className="w-10 h-1 bg-pink-600 mb-4" />
-          {((data._home_campaigns.data || []).filter((_,_i)=>_i <= 6)).map((post, index) => (
+          {((data._home_campaigns.data || []).filter((_,_i)=>_i <= 1)).map((post, index) => (
             <div onClick={()=>{
                  navigate('/campaigns')
                  data._scrollToSection('home');

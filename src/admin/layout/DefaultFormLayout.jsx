@@ -3,6 +3,7 @@ import React, { useEffect } from 'react'
 import ButtonLoader from '../components/Loaders/button';
 import PopOver from '../components/PopOver';
 import { useData } from '../../contexts/DataContext';
+import { useRef } from 'react';
 
 function FormLayout({advancedActions,hideInputs,children,title,form, verified_inputs,bottomContent,button,hideTitle,hide,topBarContent}) {
 
@@ -72,6 +73,20 @@ return (
       
         let _id=Math.random()
 
+        const textareaRef = useRef(null);
+
+        const autoResize = () => {
+            const textarea = textareaRef.current;
+            if (textarea) {
+            textarea.style.height = 'auto';
+            textarea.style.height = `${textarea.scrollHeight}px`;
+            }
+        };
+
+        useEffect(() => {
+            autoResize();
+        }, [value]); 
+
         return (   
             <div style={style ? {...style} : {}} className={`mt-7 ${width ? `w-[${width}]` : textarea ? 'w-full':'w-[300px] max-md:w-full'} ${hide || hideInputs ? 'hidden':''}`}>
                     <label for={_id} class="flex items-center mb-2 text-sm  text-gray-900">{label} {r && <span className="text-red-500">*</span>} {!r && <span className="text-gray-500 ml-1">{`(opcional)`.toLowerCase()}</span>} <div className="flex flex-1 justify-end">{rightContent}</div> {popOver && <div>
@@ -80,7 +95,22 @@ return (
                    
                     { textarea ? (
                         <>
-                          <textarea style={inputStyle ? inputStyle : {}} disabled={Boolean(disabled)} onBlur={onBlur} value={value} onChange={onChange} type={type ? type : 'text'} id={_id} rows="4" className={`${Boolean(disabled) ? 'opacity-55':''} p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300`} placeholder={placeholder}></textarea>
+                          <textarea
+                            ref={textareaRef}
+                            style={inputStyle ? inputStyle : {}}
+                            disabled={Boolean(disabled)}
+                            onBlur={onBlur}
+                            value={value}
+                            onChange={(e) => {
+                                onChange(e);
+                                autoResize();
+                            }}
+                            id={_id}
+                            rows="1"
+                            className={`${Boolean(disabled) ? 'opacity-55' : ''} p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300`}
+                            placeholder={placeholder}
+                            />
+
                         </>
                     ) : type=="item-list" ? (
 

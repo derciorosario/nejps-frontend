@@ -46,7 +46,7 @@ export default function DonationCards({oneComumn,showOne,donations=[],loading}) 
   return (
      <div className="flex">
      
-       <div className={`grid grid-cols-1 ${!oneComumn ? 'md:grid-cols-2':''} w-full  gap-6 ${showOne ? 'p-4':'p-6'} max-w-[1300px] mx-auto`}>
+       <div className={`grid grid-cols-1 ${donations.length == 1 && !oneComumn ? ' ': !oneComumn ? 'md:grid-cols-2':''} w-full  gap-6 ${showOne ? 'p-4':'p-6'} ${donations.length == 1 && !oneComumn ? 'max-w-[700px]':''}  mx-auto`}>
         
         {donations.map((donation, index) => (
           <div

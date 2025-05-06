@@ -67,7 +67,7 @@ export default function VolunteersSlider({}) {
                >
                   <div  className="min-w-full border grid grid-cols-1 md:grid-cols-2 bg-white shadow overflow-hidden">
       
-                  <div className="relative bg-gray-300 bg-opacity-45">
+                  <div className="relative bg-gray-300 bg-opacity-45  min-h-[350px]">
 
                     <img src={data.APP_BASE_URL+"/file/"+profile.logo_filename}
                     alt=""

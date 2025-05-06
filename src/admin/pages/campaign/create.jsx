@@ -37,7 +37,10 @@ export default function CreateAdminCampaigns() {
     description_en:"",
     goal: "",
     report_link:"",
-    youtube_link:''
+    goal_pt:"",
+    goal_en:"",
+    youtube_link:'',
+    raised:""
   }
  
   const [form,setForm]=useState(initial_form)
@@ -243,6 +246,7 @@ useEffect(()=>{
               verified_inputs={verified_inputs} 
               form={form}
               r={true}
+              textarea={true}
               onBlur={() => setVerifiedInputs([...verified_inputs, 'title_pt'])} 
               label={'Titulo (pt)'} 
               onChange={(e) => setForm({...form, title_pt: e.target.value})} 
@@ -255,11 +259,35 @@ useEffect(()=>{
               verified_inputs={verified_inputs} 
               form={form}
               r={true}
+              textarea={true}
               onBlur={() => setVerifiedInputs([...verified_inputs, 'title_en'])} 
               label={'Titulo (en)'} 
               onChange={(e) => setForm({...form, title_en: e.target.value})} 
               field={'title_en'} 
               value={form.title_en}
+          />
+
+           <FormLayout.Input 
+              verified_inputs={verified_inputs} 
+              form={form}
+              onBlur={() => setVerifiedInputs([...verified_inputs, 'goal_pt'])} 
+              label={'Objectivo (pt)'} 
+              onChange={(e) => setForm({...form, goal_pt: e.target.value})} 
+              field={'goal_pt'} 
+              value={form.goal_pt}
+              textarea={true}
+          />
+
+
+          <FormLayout.Input 
+              verified_inputs={verified_inputs} 
+              form={form}
+              onBlur={() => setVerifiedInputs([...verified_inputs, 'goal_en'])} 
+              label={'Objectivo (en)'} 
+              onChange={(e) => setForm({...form, goal_en: e.target.value})} 
+              field={'goal_en'} 
+              value={form.goal_en}
+              textarea={true}
           />
 
           

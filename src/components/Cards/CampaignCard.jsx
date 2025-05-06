@@ -1,5 +1,5 @@
 import React from "react";
-import { CalendarDays, MapPin } from "lucide-react";
+import { CalendarDays, MapPin,Target } from "lucide-react";
 import i18next, { t } from "i18next";
 import { useNavigate } from "react-router-dom";
 import { useData } from "../../contexts/DataContext";
@@ -7,7 +7,6 @@ import { useData } from "../../contexts/DataContext";
 
 const CampaignCard = ({ campaign,index,setShowDonationDialog,setShowHowToDonateDialog }) => {
 
-  const navigate=useNavigate()
   let raised=campaign.donations.map(item => parseFloat(item.amount || 0)).reduce((acc, curr) => acc + curr, 0)
   const progress = Math.min((parseFloat(raised) / parseFloat(campaign.goal)) * 100, 100);
   const data=useData()
@@ -15,7 +14,7 @@ const CampaignCard = ({ campaign,index,setShowDonationDialog,setShowHowToDonateD
   return (
     <div className="rounded shadow-md overflow-hidden bg-white">
 
-      <div className="relative">
+      <div className="relative bg-gray-400">
       <img
         src={data.APP_BASE_URL+"/file/"+campaign.image_filename}
         alt={campaign[`title_`+i18next.language]}
@@ -40,7 +39,11 @@ const CampaignCard = ({ campaign,index,setShowDonationDialog,setShowHowToDonateD
             <span>{campaign.location}</span>
           </div>
         </div>
-        <p className="text-sm text-gray-700 leading-snug">
+         {campaign[`goal_`+i18next.language] && <div className="flex items-center space-x-1 flex-1">
+            {/**<Target className="h-4 w-4 flex-shrink-0" /> */}
+            <span>{campaign[`goal_`+i18next.language]}</span>
+         </div>}
+        <p className="text-sm text-gray-700 leading-snug text-justify">
           {campaign[`description_`+i18next.language]}
         </p>
         <div>
