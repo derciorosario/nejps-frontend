@@ -92,7 +92,7 @@ export default function AdminCampaigns() {
                          <BaiscTable.Td onClick={()=>navigate('/admin/campaign/'+i.id)} minWidth={250}>{data.text_l(i['description_pt'],100)}</BaiscTable.Td>
                          <BaiscTable.Td onClick={()=>navigate('/admin/campaign/'+i.id)}>{i.location}</BaiscTable.Td>
                          <BaiscTable.Td onClick={()=>navigate('/admin/campaign/'+i.id)}>{data._cn(i.goal)}</BaiscTable.Td>
-                         <BaiscTable.Td onClick={()=>navigate('/admin/campaign/'+i.id)}>{data._cn(i.donations.map(item => parseFloat(item.amount || 0)).reduce((acc, curr) => acc + curr, 0))}</BaiscTable.Td>
+                         <BaiscTable.Td onClick={()=>navigate('/admin/campaign/'+i.id)}>{i.insert_amount_raised_manually  ? data._cn(i.raised || 0) :   data._cn(i.donations.map(item => parseFloat(item.amount || 0)).reduce((acc, curr) => acc + curr, 0))}</BaiscTable.Td>
                          <BaiscTable.Td>
                              {i.report_link && <div onClick={()=>{
                                 window.open(data.APP_BASE_URL+"/file/"+i.report_link, '_blank')

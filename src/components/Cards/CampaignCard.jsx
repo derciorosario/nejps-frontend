@@ -1,5 +1,5 @@
 import React from "react";
-import { CalendarDays, MapPin, Target } from "lucide-react";
+import { CalendarDays, Goal, MapPin, Target } from "lucide-react";
 import i18next, { t } from "i18next";
 import { useNavigate } from "react-router-dom";
 import { useData } from "../../contexts/DataContext";
@@ -47,7 +47,8 @@ const CampaignCard = ({ campaign, index, setShowDonationDialog, setShowHowToDona
 
         {campaign[`goal_` + i18next.language] && (
         <div className="flex items-center space-x-1 flex-1">
-        <span>{campaign[`goal_` + i18next.language]}</span>
+          <Goal className="h-4 w-4 flex-shrink-0 inline mr-1 text-gray-600" />
+        <span> {campaign[`goal_` + i18next.language]}</span>
         </div>
         )}
 
