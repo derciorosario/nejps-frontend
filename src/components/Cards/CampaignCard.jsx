@@ -1,83 +1,68 @@
 import React from "react";
-import { CalendarDays, MapPin,Target } from "lucide-react";
+import { CalendarDays, MapPin, Target } from "lucide-react";
 import i18next, { t } from "i18next";
 import { useNavigate } from "react-router-dom";
 import { useData } from "../../contexts/DataContext";
 
+const CampaignCard = ({ campaign, index, setShowDonationDialog, setShowHowToDonateDialog }) => {
+  let raised = campaign.donations.map(item => parseFloat(item.amount || 0)).reduce((acc, curr) => acc + curr, 0);
+  if (campaign.insert_amount_raised_manually) {
+    raised = parseFloat(campaign.raised || 0);
+  }
 
-const CampaignCard = ({ campaign,index,setShowDonationDialog,setShowHowToDonateDialog }) => {
-
-  let raised=campaign.donations.map(item => parseFloat(item.amount || 0)).reduce((acc, curr) => acc + curr, 0)
   const progress = Math.min((parseFloat(raised) / parseFloat(campaign.goal)) * 100, 100);
-  const data=useData()
-  
-  return (
-    <div className="rounded shadow-md overflow-hidden bg-white">
+  const data = useData();
 
+  return (
+    <div className="rounded shadow-md overflow-hidden bg-white flex flex-col h-full">
       <div className="relative bg-gray-400">
-      <img
-        src={data.APP_BASE_URL+"/file/"+campaign.image_filename}
-        alt={campaign[`title_`+i18next.language]}
-        className="w-full h-64 object-cover"
-      />
-      <div className="absolute bottom-2 left-2 text-white bg-black bg-opacity-40 px-2 py-1 rounded-md">
-                  {t('common.campaign-'+campaign.status)}
-            </div>
+        <img
+          
+          src={data.APP_BASE_URL + "/file/" + campaign.image_filename}
+          alt={campaign[`title_` + i18next.language]}
+          className={`w-full h-64 object-cover ${!campaign.image_filename ? 'opacity-0':''}`}
+        />
+        <div className="absolute bottom-2 left-2 text-white bg-black bg-opacity-40 px-2 py-1 rounded-md">
+          {t("common.campaign-" + campaign.status)}
+        </div>
       </div>
+
+
       <div className="p-6 space-y-4">
-        <h3 className="text-[18px] font-semibold">{campaign[`title_`+i18next.language]}</h3>
+
+        <h3 className="text-[18px] font-semibold">{campaign[`title_` + i18next.language]}</h3>
 
         <div className="flex items-center text-sm text-gray-600 space-x-4">
-          <div className="flex items-center space-x-1">
-            <CalendarDays className="h-4 w-4" />
-            <span><label>{campaign.date.split('T')[0]?.split('-')?.reverse()?.join('/')} </label> 
-             {/**({campaign.daysLeft < 0  ? -(campaign.daysLeft) : campaign.daysLeft} {campaign.daysLeft == 0 ? "Hoje" : campaign.daysLeft <= 1 ? `${i18next.language=="pt" ? 'Dias':'Days'}`: `${i18next.language=="pt" ? 'Dias atrás':'Days ago'}`}) */}
-            </span>
-          </div>
-          <div className="flex items-center space-x-1 flex-1">
-            <MapPin className="h-4 w-4 flex-shrink-0" />
-            <span>{campaign.location}</span>
-          </div>
+        <div className="flex items-center space-x-1">
+        <CalendarDays className="h-4 w-4" />
+        <span>
+        <label>{campaign.date.split("T")[0]?.split("-")?.reverse()?.join("/")}</label>
+        </span>
         </div>
-         {campaign[`goal_`+i18next.language] && <div className="flex items-center space-x-1 flex-1">
-            {/**<Target className="h-4 w-4 flex-shrink-0" /> */}
-            <span>{campaign[`goal_`+i18next.language]}</span>
-         </div>}
-        <p className="text-sm text-gray-700 leading-snug text-justify">
-          {campaign[`description_`+i18next.language]}
-        </p>
-        <div>
-          <p className="text-sm font-semibold text-rose-600">
-             {t('common.raised')}  {data._cn(raised)}MZN
-          </p>
-          {campaign.goal!=0 && <div className="w-full h-1 bg-gray-200 rounded-full mt-1">
-            <div
-              className="h-full bg-rose-600 rounded-full"
-              style={{ width: `${progress}%` }}
-            ></div>
-          </div>}
-          {campaign.goal!=0 && <div className="flex justify-end text-sm font-medium text-gray-800 mt-1">
-               {t('common.goal')}  {data._cn(campaign.goal)}MZN
-          </div>}
+        <div className="flex items-center space-x-1 flex-1">
+        <MapPin className="h-4 w-4 flex-shrink-0" />
+        <span>{campaign.location}</span>
+        </div>
         </div>
 
-       <div className="flex items-center gap-x-2 relative">
-                           <button onClick={()=>{
-                            setShowHowToDonateDialog(true)
-                           }} className="bg-rose-600 border-white border text-white px-6 py-3 rounded shadow hover:bg-rose-700">
-                               {t('common.donate')}
-                           </button>
-                           {campaign.donations.length!=0 && <button onClick={()=>{
-                              setShowDonationDialog(campaign)                                  
-                           }} className="text-rose-600 border border-rose-600 hover:bg-rose-700 hover:text-white bg-white text-sm rounded px-4 py-3">
-                             {t('common.see-donations')}
-                           </button>}
-                          
-        </div>   
-        {campaign.report_link && <div onClick={()=>{
-          window.open(`${data.APP_BASE_URL}/file/${donation.report_link}`, '_blank')
-        }} className="bg-rose-100 text-rose-600 cursor-pointer px-1 py-1 rounded items-center inline-flex">
-                                <svg className="fill-rose-600 mr-2" height="18px" width="18px" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" 
+        {campaign[`goal_` + i18next.language] && (
+        <div className="flex items-center space-x-1 flex-1">
+        <span>{campaign[`goal_` + i18next.language]}</span>
+        </div>
+        )}
+
+        <p className="text-sm text-gray-700 leading-snug text-justify">
+        {campaign[`description_` + i18next.language]}
+        </p>
+
+        {campaign.report_link && (
+            <div
+              onClick={() => {
+                window.open(`${data.APP_BASE_URL}/file/${campaign.report_link}`, "_blank");
+              }}
+              className="bg-rose-100 text-rose-600 cursor-pointer px-1 py-1 rounded items-center inline-flex"
+            >
+                              <svg className="fill-rose-600 mr-2" height="18px" width="18px" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" 
                                   viewBox="0 0 370.32 370.32" xml:space="preserve">
                                 <g>
                                 <path  d="M148.879,85.993H95.135c-8.284,0-15,6.716-15,15c0,8.284,6.716,15,15,15h53.744
@@ -101,22 +86,86 @@ const CampaignCard = ({ campaign,index,setShowDonationDialog,setShowHowToDonateD
                                 <path  d="M262.305,253.354h-9.803v27.782h9.803c7.915,0,14.355-6.222,14.355-13.862
                                   C276.661,259.598,270.221,253.354,262.305,253.354z"/>
                               </g>
-                              </svg>
-                               <span>{t('common.download-campaign-report')}</span>
-        </div>}
+                           </svg>
+              <span>{t("common.download-campaign-report")}</span>
+            </div>
+          )}
+
+</div>
+      
+      <div className="p-6 space-y-4 flex flex-col h-full">
+
+     
+      
+
+        <div className="w-full space-y-4 _bottom_ mt-auto">
+          <div>
+            <p className="text-sm font-semibold text-rose-600">
+              {t("common.raised")} {data._cn(raised)}MZN
+            </p>
+            {campaign.goal != 0 && (
+              <div className="w-full h-1 bg-gray-200 rounded-full mt-1">
+                <div
+                  className="h-full bg-rose-600 rounded-full"
+                  style={{ width: `${progress}%` }}
+                ></div>
+              </div>
+            )}
+            {campaign.goal != 0 && (
+              <div className="flex justify-end text-sm font-medium text-gray-800 mt-1">
+                {t("common.goal")} {data._cn(campaign.goal)}MZN
+              </div>
+            )}
+          </div>
+
+          <div className="flex items-center gap-x-2 relative">
+            <button
+              onClick={() => {
+                setShowHowToDonateDialog(true);
+              }}
+              className="bg-rose-600 border-white border text-white px-6 py-3 rounded shadow hover:bg-rose-700"
+            >
+              {t("common.donate")}
+            </button>
+            {campaign.donations.length != 0 && (
+              <button
+                onClick={() => {
+                  setShowDonationDialog(campaign);
+                }}
+                className="text-rose-600 border border-rose-600 hover:bg-rose-700 hover:text-white bg-white text-sm rounded px-4 py-3"
+              >
+                {t("common.see-donations")}
+              </button>
+            )}
+          </div>
+
+      
+        </div>
       </div>
     </div>
   );
 };
 
-export default function CampaignList({campaigns=[],setShowDonationDialog,showDonationDialog, setShowHowToDonateDialog}) {
+export default function CampaignList({
+  campaigns = [],
+  setShowDonationDialog,
+  showDonationDialog,
+  setShowHowToDonateDialog,
+}) {
   return (
-     <div>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 p-6 max-w-[1300px] mx-auto">
-            {campaigns.map((campaign, index) => (
-               <CampaignCard setShowHowToDonateDialog={setShowHowToDonateDialog} setShowDonationDialog={setShowDonationDialog} showDonationDialog={showDonationDialog} key={index} index={index} campaign={campaign} />
-            ))}
-        </div>
-     </div>
+    <div>
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 p-6 max-w-[1300px] mx-auto">
+        {campaigns.map((campaign, index) => (
+          <CampaignCard
+            setShowHowToDonateDialog={setShowHowToDonateDialog}
+            setShowDonationDialog={setShowDonationDialog}
+            showDonationDialog={showDonationDialog}
+            key={index}
+            index={index}
+            campaign={campaign}
+          />
+        ))}
+      </div>
+    </div>
   );
 }

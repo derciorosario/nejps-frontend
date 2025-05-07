@@ -79,7 +79,7 @@ return (
             const textarea = textareaRef.current;
             if (textarea) {
             textarea.style.height = 'auto';
-            textarea.style.height = `${textarea.scrollHeight}px`;
+            textarea.style.height = `${textarea.scrollHeight < 40 ? 40 : textarea.scrollHeight}px`;
             }
         };
 

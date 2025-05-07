@@ -7,6 +7,7 @@ import { useLocation, useNavigate } from 'react-router-dom'
 import { useAuth } from '../../../contexts/AuthContext'
 import i18next from 'i18next'
 import BasicPagination from '../../components/pagination/basic-pagination'
+import BasicSearch from '../../components/Inputs/search'
 
 export default function AdminCampaigns() {
   const data=useData()
@@ -18,13 +19,12 @@ export default function AdminCampaigns() {
   const [search,setSearch]=useState('')
   const [loading,setLoading]=useState(false)
   
-
   let required_data=['campaigns']
 
   useEffect(()=>{ 
     if(!user || updateFilters || data.updateTable) return
     data.handleLoaded('remove',required_data)
-    data._get(required_data,{campaigns:{name:search,page:currentPage}}) 
+    data._get(required_data,{campaigns:{search,page:currentPage}}) 
   },[user,pathname,search,currentPage])
 
 
@@ -36,7 +36,7 @@ export default function AdminCampaigns() {
          data.handleLoaded('remove',required_data)
          setCurrentPage(1)
          setLoading(false)
-         data._get(required_data,{campaigns:{name:search,page:1}}) 
+         data._get(required_data,{campaigns:{search:search,page:1}}) 
     }
  },[data.updateTable])
 
@@ -54,6 +54,9 @@ export default function AdminCampaigns() {
                 }]}/>
             </div>
 
+        <BasicSearch hideResults={true} loaded={data._loaded.includes('campaigns')} search={search}  from={'campaigns'} setCurrentPage={setCurrentPage} setSearch={setSearch} />
+            
+
         <BaiscTable  addRes={()=>{
                      
             }}  loaded={data._loaded.includes('campaigns')} header={[
@@ -61,7 +64,6 @@ export default function AdminCampaigns() {
                     deleteFunction:'default',
                     deleteUrl:'api/campaigns/delete'}
                     } items={data._campaigns?.data || []}/>,
-
                     'ID',
                     'Titulo',
                     'Descrição',

@@ -126,7 +126,9 @@ export default function Admindonors() {
                     value:data._volunteers?.total
                 }]}/>
             </div>
-        <BasicFilter makeFiltersVisible={true}   setUpdateFilters={setUpdateFilters} filterOptions={filterOptions}  setFilterOptions={setFilterOptions}/>
+        <BasicFilter
+         
+         makeFiltersVisible={true}   setUpdateFilters={setUpdateFilters} filterOptions={filterOptions}  setFilterOptions={setFilterOptions}/>
         <BaiscTable addRes={()=>{
                         
         }} loaded={data._loaded.includes('volunteers')} header={[

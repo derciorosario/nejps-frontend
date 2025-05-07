@@ -16,7 +16,7 @@ import DonationsPopUp from '../../components/Cards/donation-popup'
 export default function CreateAdminCampaigns() {
   const data=useData()
   const { id } = useParams()
-  const {pathname,search } = useLocation()
+  const {pathname, search } = useLocation()
   const navigate = useNavigate()
   const {user=null}=useAuth()
   const [loading,setLoading]=useState(id ? true : false);
@@ -40,30 +40,35 @@ export default function CreateAdminCampaigns() {
     goal_pt:"",
     goal_en:"",
     youtube_link:'',
-    raised:""
+    raised:"",
+    insert_amount_raised_manually:false
   }
  
   const [form,setForm]=useState(initial_form)
-
 
   function handleUploadedFiles(upload){
     setForm({...form,[upload.key]:upload.filename})
   }
 
   useEffect(()=>{
-    let v=true
+
+    let v=true;
+
     if(
+       !form.aguardo ||
        !form.title_pt ||
        !form.title_en ||
        !form.image_filename ||
        !form.location ||
        !form.date ||
        !form.description_pt ||
-       !form.description_en
+       !form.description_en ||
+       (form.insert_amount_raised_manually && !form.raised)
     ){
-       v=false
+      v=false;
+      v=[];
     }
-
+  
     setValid(v)
 
  },[form])
@@ -136,7 +141,12 @@ useEffect(()=>{
 
         let response=await data.makeRequest({method:'get',url:`api/campaign/`+id,withToken:true, error: ``},0);
         setItemToEditLoaded(response)
-        setForm({...response})
+        if(form.id){
+          setForm({...form,donations:response.donations})
+        }else{
+          setForm({...response})
+        }
+        
         setLoading(false)
 
       }catch(e){
@@ -197,17 +207,16 @@ useEffect(()=>{
           <FormLayout  hide={!itemToEditLoaded && id} title={id ? 'Editar campanha' : 'Adicionar campanha'} verified_inputs={verified_inputs} form={form}
           
           topBarContent={(
-             <div className={`${loading || !id ? 'hidden':''}`}>
 
-                 <button  onClick={()=>{
+             <div className={`${loading || !id ? 'hidden':''}`}>
+                  <button  onClick={()=>{
                         setDonationPopUpOpen(true)
                         setItemToShow({
                         name:'donations',
                         ...form,
                         update_id:null
                   })}
-
-                } type="button" class={`text-white bg-honolulu_blue-400 max-sm:w-full border focus:ring-4 focus:outline-none font-medium rounded-[0.3rem] text-sm px-5 py-1 text-center inline-flex items-center me-2`}>         
+                } type="button" class={`text-white ${form.insert_amount_raised_manually ? 'bg-orange-300':'bg-honolulu_blue-400'} max-sm:w-full border focus:ring-4 focus:outline-none font-medium rounded-[0.3rem] text-sm px-5 py-1 text-center inline-flex items-center me-2`}>         
                         <HandCoins size={20}/>
                     <span className="ml-2">Doações</span>
                     {(form.donations?.length!=0) && <div className="ml-2 bg-honolulu_blue-400 text-white rounded-full px-2 flex items-center justify-center">
@@ -215,6 +224,7 @@ useEffect(()=>{
                     </div>}
                     </button>
              </div>
+
           )}
           bottomContent={(
               <div>
@@ -241,7 +251,6 @@ useEffect(()=>{
            )}
           >
 
-
           <FormLayout.Input 
               verified_inputs={verified_inputs} 
               form={form}
@@ -253,7 +262,6 @@ useEffect(()=>{
               field={'title_pt'} 
               value={form.title_pt}
           />
-
 
           <FormLayout.Input 
               verified_inputs={verified_inputs} 
@@ -277,7 +285,6 @@ useEffect(()=>{
               value={form.goal_pt}
               textarea={true}
           />
-
 
           <FormLayout.Input 
               verified_inputs={verified_inputs} 
@@ -344,11 +351,13 @@ useEffect(()=>{
               form={form}
               type={'number'}
               onBlur={() => setVerifiedInputs([...verified_inputs, 'goal'])} 
-              label={'Objectivo'} 
+              label={'Valor do objectivo'} 
               onChange={(e) => setForm({...form,goal:e.target.value})} 
               field={'goal'} 
               value={form.goal}
           />
+      
+      
 
           <FormLayout.Input 
               verified_inputs={verified_inputs} 
@@ -359,6 +368,34 @@ useEffect(()=>{
               field={'youtube_link'} 
               value={form.youtube_link}
           />
+
+          <div className="w-full mt-6 mb-3">
+
+          <div className={`${!form.insert_amount_raised_manually ? 'opacity-50 pointer-events-none hidden':''}`}>
+            <FormLayout.Input 
+                verified_inputs={verified_inputs} 
+                form={form}
+                type={'number'}
+                onBlur={() => setVerifiedInputs([...verified_inputs, 'raised'])} 
+                label={'Valor arrecadado'} 
+                onChange={(e) => setForm({...form,raised:e.target.value})} 
+                field={'raised'} 
+                r={form.insert_amount_raised_manually}
+                value={form.raised}
+            />
+          </div>
+
+          <div className="flex justify-start">
+              <label  className={`flex ${!(loading) ? 'cursor-pointer':''} items-center gap-x-1`}>
+                <input onClick={()=>{
+                  setVerifiedInputs(verified_inputs.filter(i=>i!='raised'))
+                  setForm({...form,insert_amount_raised_manually:!form.insert_amount_raised_manually,raised:''})
+                }} checked={form.insert_amount_raised_manually} id="checkbox-table-3" type="checkbox" class={`w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded-sm focus:ring-blue-500 dark:focus:ring-blue-600  focus:ring-2`}/>
+                <span>Inserir valor arrecadado manualmente</span>
+              </label>
+          </div>
+
+        </div>
 
           
 

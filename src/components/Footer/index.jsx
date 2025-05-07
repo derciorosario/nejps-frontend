@@ -122,7 +122,7 @@ const Footer = () => {
                  navigate('/campaigns')
                  data._scrollToSection('home');
             }} className="flex items-start cursor-pointer hover:opacity-40 gap-4 mb-6" key={index}>
-              <img src={data.APP_BASE_URL+"/file/"+post.image_filename} alt="post" className="w-16 h-16 object-cover rounded" />
+              <img src={data.APP_BASE_URL+"/file/"+post.image_filename} className={`w-16 h-16 ${!post.image_filename ? 'pointer-events-none bg-gray-300':''} object-cover rounded`} />
               <div>
                 <p className="font-medium text-sm">{post['title_'+i18next.language]}</p>
                 <p className="text-xs text-gray-400 mt-1">{post.date.split('T')[0]?.split('-')?.reverse()?.join('/')}</p>

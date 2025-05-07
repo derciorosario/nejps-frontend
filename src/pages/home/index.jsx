@@ -19,7 +19,6 @@ import HowToDonateDialog from '../../components/Dialogs/how-to-donate-dialog';
 import VolunteersSlider from '../../components/Silders/volunteersSlider';
 
 
-
 function App({}) {
   
   const data=useData()
@@ -28,7 +27,6 @@ function App({}) {
   const [showDonationDialog,setShowDonationDialog]=useState(false)
   const [showHowToDonateDialog,setShowHowToDonateDialog]=useState(false)
 
-  
   useEffect(() => {
     AOS.init({
       duration: 700,
@@ -175,8 +173,8 @@ function App({}) {
                        
                        {(data._home_campaigns.data || []).length!=0 && <section id="campaigns" className="bg-gray-100 pb-20">
                          <SectionTopContent title={t('common.our-campaigns')} paragraph={t('paragraphs.campaigns')}/>
-                         <CampaignList campaigns={(data._home_campaigns.data || []).filter((_,_i)=>_i <= 6)} showHowToDonateDialog={showHowToDonateDialog} setShowHowToDonateDialog={setShowHowToDonateDialog} showDonationDialog={showDonationDialog} setShowDonationDialog={setShowDonationDialog}/>
-                         {((data._home_campaigns.data || []).length >= 5) && <button onClick={()=>{
+                         <CampaignList campaigns={(data._home_campaigns.data || []).filter((_,_i)=>_i <= 5)} showHowToDonateDialog={showHowToDonateDialog} setShowHowToDonateDialog={setShowHowToDonateDialog} showDonationDialog={showDonationDialog} setShowDonationDialog={setShowDonationDialog}/>
+                         {((data._home_campaigns.data || []).length >= 4) && <button onClick={()=>{
                                   navigate('/campaigns')
                           }} className="mt-6 bg-rose-600 mx-auto flex items-center text-white px-4 py-2 rounded hover:bg-rose-700 text-sm font-semibold self-start">
                               {t('common.see-all-campaigns')}  

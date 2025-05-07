@@ -15,9 +15,13 @@ export default function DonationsDialog({setShow,show}) {
   useEffect(()=>{
          setSelectedCampaign(show?.id ? show : {})
          setLoading(!show ? true : loading)
-         setRaised((show.donations || []).map(item => parseFloat(item.amount || 0)).reduce((acc, curr) => acc + curr, 0))
-  },[show])
 
+         if(show?.insert_amount_raised_manually){
+             setRaised(parseFloat(show?.raised || 0))
+         }else{
+            setRaised((show?.donations || []).map(item => parseFloat(item.amount || 0)).reduce((acc, curr) => acc + curr, 0))
+         }
+  },[show])
 
 
   useEffect(()=>{
@@ -113,11 +117,15 @@ export default function DonationsDialog({setShow,show}) {
                         <h3 className="text-xl font-semibold mt-2 mb-1">{selectedCampaign['title_'+i18next.language]}</h3>
                     </div>
                     <div className="flex items-center justify-between mb-3">
-                                    <div className="flex items-center text-sm text-gray-600 mt-1">
+                                    {!show?.insert_amount_raised_manually && <div className="flex items-center text-sm text-gray-600 mt-1">
                                         <label className="font-bold mr-2">{t('menu.donations')}:</label>
                                          {selectedCampaign.donations?.length || 0}
-                                    </div>
+                                    </div>}
                     </div>
+
+                    
+
+                    
 
                     <div className="">
                             <p className="text-sm font-semibold text-rose-600">
@@ -133,6 +141,10 @@ export default function DonationsDialog({setShow,show}) {
                                 {t('common.goal')}  {data._cn(selectedCampaign.goal)}MZN
                             </div>}
                     </div>
+
+                    {show?.insert_amount_raised_manually && <div className="flex items-center justify-center text-[14px] mb-1 mt-7">
+                                  <label className="text-gray-400 mr-2">{t('common.some-donations')}</label>
+                    </div>}
                    
                  </div>
 

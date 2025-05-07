@@ -13,8 +13,8 @@ import i18next, { t } from "i18next";
 import { useData } from "../../contexts/DataContext";
 
 export default function HeroDonations({YouTubeVideoLink,setYouTubeVideoLink,showDonationDialog,setShowDonationDialog,showHowToDonateDialog, setShowHowToDonateDialog}) {
+  
   const data=useData()
-
   const hasMultiple = (data._home_campaigns.data || []).length > 1;
   
   const settings = {
@@ -43,21 +43,24 @@ export default function HeroDonations({YouTubeVideoLink,setYouTubeVideoLink,show
     <div className="font-sans py-10">
       <div className="max-w-6xl mx-auto relative md:px-5  overflow-hidden">
         <Slider {...settings}>
-          {(data._home_campaigns.data  || []).map((profile, index) => {
+          {((data._home_campaigns.data || []).filter((_,_i)=>_i <= 2)).map((profile, index) => {
               let raised=profile.donations.map(item => parseFloat(item.amount || 0)).reduce((acc, curr) => acc + curr, 0)
+              if(profile.insert_amount_raised_manually){
+                 raised=parseFloat(profile.raised || 0)
+              }
               return (
                 (
                   <div
-                  key={index}
-                  className="w-full"
-               >
+                    key={index}
+                    className="w-full"
+                  >
                   <div  className="min-w-full grid grid-cols-1 md:grid-cols-2 bg-white shadow overflow-hidden">
       
                   <div className="relative min-h-[350px] bg-gray-300">
-                     <img
+                  <img
                     src={data.APP_BASE_URL+"/file/"+profile.image_filename}
                     alt=""
-                    className="w-full h-full object-cover"
+                    className={`w-full h-full object-cover ${!profile.image_filename ? 'opacity-0':''}`}
                   />
 
                    <div className="absolute w-full inset-0 flex items-center justify-center">
@@ -68,7 +71,6 @@ export default function HeroDonations({YouTubeVideoLink,setYouTubeVideoLink,show
                    <div className="absolute bottom-2 left-2 text-white bg-black bg-opacity-40 px-2 py-1 rounded">
                                       {t('common.campaign-'+profile.status)}
                    </div>
-
                   </div>
                   <div className="p-8">
                         <p className="text-rose-600 font-semibold uppercase text-sm mb-1">
@@ -93,6 +95,7 @@ export default function HeroDonations({YouTubeVideoLink,setYouTubeVideoLink,show
                               </span>
                           </div>
                         </div>
+
                         {profile[`goal_`+i18next.language] && <p className="text-gray-700 mb-4"><span className="font-medium text-[15px] text-gray-800 mr-2">{t('common.aim')}:</span>{profile[`goal_`+i18next.language]}</p>}
                         <p className="text-gray-700 mb-4 text-justify">{profile[`description_`+i18next.language]}</p>
                         <div className={`flex justify-between text-sm mb-1 ${profile.goal==0 ? 'mb-4':''}`}>
@@ -111,12 +114,12 @@ export default function HeroDonations({YouTubeVideoLink,setYouTubeVideoLink,show
                           ></div>
                         </div>}
                         <div className="flex items-center gap-x-2">
-                          <button onClick={()=>{
+                            <button onClick={()=>{
                               setShowHowToDonateDialog(true)
                           }} className="bg-rose-600 text-white px-6 py-3 rounded shadow hover:bg-rose-700">
                               {t('common.donate')}
                           </button>
-                         {profile.donations.length!=0 && <button onClick={()=>{
+                         {(profile.donations.length!=0) && <button onClick={()=>{
                              setShowDonationDialog(profile)                                 
                           }} className="text-rose-600 border border-rose-600 hover:bg-rose-700 hover:text-white bg-white text-sm rounded px-4 py-3">
                             {t('common.see-donations')}

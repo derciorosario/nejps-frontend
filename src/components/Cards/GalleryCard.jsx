@@ -48,7 +48,7 @@ const ImageGallery = () => {
       : allImages.filter((img) => img.categoryId === selectedCategory);
 
   return (
-    <div className="p-4">
+    <div className="p-4 max-w-6xl mx-auto">
       {/* Category Buttons */}
       <div className="flex justify-center flex-wrap gap-4 mb-6">
         <button

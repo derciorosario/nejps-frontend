@@ -6,6 +6,7 @@ import BaiscTable from '../../components/tables/default-table'
 import { useLocation, useNavigate } from 'react-router-dom'
 import { useAuth } from '../../../contexts/AuthContext'
 import BasicPagination from '../../components/pagination/basic-pagination'
+import BasicSearch from '../../components/Inputs/search'
 
 export default function AdminEvents() {
 
@@ -22,7 +23,7 @@ export default function AdminEvents() {
   useEffect(()=>{ 
     if(!user || updateFilters || data.updateTable) return
     data.handleLoaded('remove',required_data)
-    data._get(required_data,{events:{name:search,page:currentPage}}) 
+    data._get(required_data,{events:{search,page:currentPage}}) 
   },[user,pathname,search,currentPage])
 
 
@@ -33,10 +34,9 @@ export default function AdminEvents() {
          data.handleLoaded('remove',required_data)
          setCurrentPage(1)
          setLoading(false)
-         data._get(required_data,{events:{name:search,page:1}}) 
+         data._get(required_data,{events:{search,page:1}}) 
     }
  },[data.updateTable,updateFilters])
-
 
   return (
       <DefaultAdminLayout refresh={true} addBtn={{label:'Adicionar',onClick:()=>{
@@ -51,6 +51,9 @@ export default function AdminEvents() {
                 }]}/>
             </div>
 
+        
+        <BasicSearch hideResults={true} loaded={data._loaded.includes('events')} search={search}  from={'events'} setCurrentPage={setCurrentPage} setSearch={setSearch} />
+                       
         <BaiscTable  addRes={()=>{
                      
               }}  loaded={data._loaded.includes('events')} header={[
