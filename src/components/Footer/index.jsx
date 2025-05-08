@@ -121,7 +121,7 @@ const Footer = () => {
             <div onClick={()=>{
                  navigate('/campaigns')
                  data._scrollToSection('home');
-            }} className="flex items-start cursor-pointer hover:opacity-40 gap-4 mb-6" key={index}>
+            }} className={`flex ${index!=0 ? 'border-t border-[#41414a]':''} items-start cursor-pointer hover:opacity-40 gap-4 py-3`} key={index}>
               <img src={data.APP_BASE_URL+"/file/"+post.image_filename} className={`w-16 h-16 ${!post.image_filename ? 'pointer-events-none bg-gray-300':''} object-cover rounded`} />
               <div>
                 <p className="font-medium text-sm">{post['title_'+i18next.language]}</p>

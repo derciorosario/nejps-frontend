@@ -6,16 +6,16 @@ import { useData } from "../../contexts/DataContext";
 const breakpointColumnsObj = {
   default: 3,
   1100: 2,
-  700: 1,
+  700: 2,
 };
 
 const ImageGallery = () => {
-
-  const data=useData()
+  const data = useData();
 
   const [selectedCategory, setSelectedCategory] = useState("all");
   const [isOpen, setIsOpen] = useState(false);
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [loadedImageIds, setLoadedImageIds] = useState(new Set());
 
   const openModal = (index) => {
     setCurrentIndex(index);
@@ -26,19 +26,23 @@ const ImageGallery = () => {
 
   const showPrev = () =>
     setCurrentIndex((prev) =>
-      prev === 0 ? filteredImages.length - 1 : prev - 1
+      prev === 0 ? visibleImages.length - 1 : prev - 1
     );
 
   const showNext = () =>
     setCurrentIndex((prev) =>
-      prev === filteredImages.length - 1 ? 0 : prev + 1
+      prev === visibleImages.length - 1 ? 0 : prev + 1
     );
+
+  const handleImageLoad = (id) => {
+    setLoadedImageIds((prev) => new Set(prev).add(id));
+  };
 
   const allImages = (data._gallery_categories.data || []).flatMap((cat) =>
     cat.images.map((img) => ({
       ...img,
-      category:cat,
-      src: `${data.APP_BASE_URL+"/file/"+img.url}`,
+      category: cat,
+      src: `${data.APP_BASE_URL + "/file/" + img.url}`,
       categoryId: cat.id,
     }))
   );
@@ -47,6 +51,10 @@ const ImageGallery = () => {
     selectedCategory === "all"
       ? allImages
       : allImages.filter((img) => img.categoryId === selectedCategory);
+
+  const visibleImages = filteredImages.filter((img) =>
+    loadedImageIds.has(img.id)
+  );
 
   return (
     <div className="p-4 max-w-6xl mx-auto">
@@ -85,27 +93,30 @@ const ImageGallery = () => {
         columnClassName="bg-clip-padding"
       >
         {filteredImages.map((img, index) => (
-          
           <div
             key={img.id}
-            className="transition-opacity relative duration-500 ease-in-out opacity-0 animate-fade-in bg-gray-400"
+            className={`transition-opacity relative duration-500 ease-in-out ${
+              loadedImageIds.has(img.id) ? "opacity-100" : "opacity-0"
+            } bg-gray-400`}
           >
             <img
               src={img.src}
               alt={`Gallery ${index}`}
               className="w-full rounded mb-4 shadow-md cursor-pointer active:opacity-95 md:hover:scale-105 transition-transform"
               onClick={() => openModal(index)}
+              onLoad={() => handleImageLoad(img.id)}
             />
-             {(img['title_'+i18next.language] /**|| img.category['name_'+i18next.language] */) && <div className="absolute bottom-2 left-2 text-white bg-black bg-opacity-40 px-2 py-1 rounded-md">
-                      {img['title_'+i18next.language]/**|| img.category['name_'+i18next.language] */}
-             </div>}
+            {(img["title_" + i18next.language]) && (
+              <div className="absolute bottom-2 left-2 text-white bg-black bg-opacity-40 px-2 py-1 rounded-md">
+                {img["title_" + i18next.language]}
+              </div>
+            )}
           </div>
         ))}
-
       </Masonry>
 
       {/* Modal */}
-      {isOpen && (
+      {isOpen && visibleImages[currentIndex] && (
         <div
           className="fixed inset-0 bg-black bg-opacity-80 flex items-center justify-center z-50"
           onClick={closeModal}
@@ -123,11 +134,10 @@ const ImageGallery = () => {
               </button>
             </div>
             <img
-              src={filteredImages[currentIndex].src}
+              src={visibleImages[currentIndex].src}
               alt={`Preview ${currentIndex}`}
               className="max-h-[80vh] w-full object-contain rounded mx-auto"
             />
-
             <button
               onClick={showPrev}
               className="absolute left-2 top-1/2 transform -translate-y-1/2 text-white text-4xl font-bold"

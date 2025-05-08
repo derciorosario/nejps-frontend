@@ -40,7 +40,7 @@ function App({}) {
    },[data.updateTable])
 
     useEffect(()=>{
-       data._scrollToSection('home')
+      data._scrollToSection('home','instant')
      },[])
   
 
@@ -51,7 +51,9 @@ function App({}) {
                        <PagesHero name={t('menu.donations')}/>
                        <div className="relative bg-white">
                            <section className="pb-20">
-                                    <SectionTopContent title={t('menu.donations')} paragraph={t('paragraphs.donations')}/>                 
+                                   <div  id="move_after_pagination">
+                                    <SectionTopContent title={t('menu.donations')} paragraph={t('paragraphs.donations')}/> 
+                                    </div>                
                                     {data._loaded.includes('donations') && <div className="px-5 flex gap-x-3 flex-wrap justify-center gap-y-2">
                                         <div className="inline-flex px-2 items-center py-2 border border-gray-200 rounded bg-gray-100">
                                             <span className="text-sm mr-2">{t('common.total-donations')}:</span>
@@ -64,7 +66,7 @@ function App({}) {
                                     </div>}
                                     {!data._loaded.includes('donations') && <ItemsLoader/>} 
                                     {data._loaded.includes('donations') && <DonationCards donations={data._donations.data || []}/>}
-                                    <BasicPagination center={true} color={true} show={data._loaded.includes('donations')} from={'donations'} setCurrentPage={setCurrentPage} total={data._donations?.total}  current={data._donations?.currentPage} last={data._donations?.pages}/>
+                                    <BasicPagination goTo={()=>data._scrollToSection('move_after_pagination')} center={true} color={true} show={data._loaded.includes('donations')} from={'donations'} setCurrentPage={setCurrentPage} total={data._donations?.total}  current={data._donations?.currentPage} last={data._donations?.pages}/>
                            </section>
                        </div>
               </DefaultLayout>

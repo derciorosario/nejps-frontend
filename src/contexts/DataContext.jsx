@@ -179,11 +179,11 @@ export const DataProvider = ({ children }) => {
     }, []);
 
 
-    const _scrollToSection = (to) => {
+    const _scrollToSection = (to,instant) => {
       const Section = document.getElementById(to);
       console.log({Section})
       if (Section) {
-        Section.scrollIntoView({ behavior: (to=="home" || to=="about" || to=="contact") ? 'smooth':'instant' });
+        Section.scrollIntoView({ behavior:instant ? 'instant' :  (to=="home" || to=="about" || to=="move_after_pagination" || to=="contact") ? 'smooth':'instant' });
       }else{
         setTimeout(()=>_scrollToSection(to),2000)
       }

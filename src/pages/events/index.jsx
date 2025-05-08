@@ -45,7 +45,7 @@ function App({}) {
  },[data.updateTable])
 
   useEffect(()=>{
-    data._scrollToSection('home')
+    data._scrollToSection('home','instant')
   },[])
 
   return (
@@ -57,10 +57,12 @@ function App({}) {
                        <PagesHero name={t('menu.events')}/>
                        <div className="relative bg-white">
                             <section className="pb-20">
-                                    <SectionTopContent title={t('common.events')} paragraph={t('paragraphs.events')}/>  
+                                    <div  id="move_after_pagination">
+                                      <SectionTopContent title={t('common.events')} paragraph={t('paragraphs.events')}/>  
+                                    </div>
                                     {!data._loaded.includes('events') && <ItemsLoader/>}               
                                     {data._loaded.includes('events') && <EventCards events={data._events.data || []} setShowHowToDonateDialog={setShowHowToDonateDialog} showDonationDialog={showDonationDialog} setShowDonationDialog={setShowDonationDialog}/>}
-                                    <BasicPagination center={true} color={true} show={data._loaded.includes('events')} from={'events'} setCurrentPage={setCurrentPage} total={data._events?.total}  current={data._events?.page} last={data._events?.totalPages}/>
+                                    <BasicPagination goTo={()=>data._scrollToSection('move_after_pagination')} center={true} color={true} show={data._loaded.includes('events')} from={'events'} setCurrentPage={setCurrentPage} total={data._events?.total}  current={data._events?.page} last={data._events?.totalPages}/>
                             </section>
                        </div>
               </DefaultLayout>

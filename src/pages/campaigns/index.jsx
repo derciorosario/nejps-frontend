@@ -44,7 +44,7 @@ function App({}) {
  },[data.updateTable])
 
   useEffect(()=>{
-    data._scrollToSection('home')
+        data._scrollToSection('home','instant')
   },[])
 
   return (
@@ -59,10 +59,12 @@ function App({}) {
                                     <HeroDonations showHowToDonateDialog={showHowToDonateDialog} setShowHowToDonateDialog={setShowHowToDonateDialog} showDonationDialog={showDonationDialog} setShowDonationDialog={setShowDonationDialog} YouTubeVideoLink={YouTubeVideoLink} setYouTubeVideoLink={setYouTubeVideoLink}/>
                             </section>
                             <section className="pb-20">
-                                    <SectionTopContent title={t('common.causes')} paragraph={t('paragraphs.causes')}/>  
-                                    {!data._loaded.includes('campaigns') && <ItemsLoader/>}               
+                                    <div  id="move_after_pagination">
+                                        <SectionTopContent title={t('common.causes')} paragraph={t('paragraphs.causes')}/>  
+                                    </div>
+                                    {!data._loaded.includes('campaigns') && <ItemsLoader/>} 
                                     {data._loaded.includes('campaigns') && <CampaignList campaigns={data._campaigns.data || []} setShowHowToDonateDialog={setShowHowToDonateDialog} showDonationDialog={showDonationDialog} setShowDonationDialog={setShowDonationDialog}/>}
-                                    <BasicPagination center={true} color={true} show={data._loaded.includes('campaigns')} from={'campaigns'} setCurrentPage={setCurrentPage} total={data._campaigns?.total}  current={data._campaigns?.currentPage} last={data._campaigns?.pages}/>
+                                    <BasicPagination goTo={()=>data._scrollToSection('move_after_pagination')} center={true} color={true} show={data._loaded.includes('campaigns')} from={'campaigns'} setCurrentPage={setCurrentPage} total={data._campaigns?.total}  current={data._campaigns?.currentPage} last={data._campaigns?.pages}/>
                             </section>
                        </div>
               </DefaultLayout>

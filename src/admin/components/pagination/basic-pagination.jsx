@@ -2,16 +2,15 @@ import React from 'react'
 import { useData } from '../../../contexts/DataContext'
 import { t } from 'i18next'
 
-function BasicPagination({total,current,last,setCurrentPage,from,show,color,center}) {
-
+function BasicPagination({total,current,last,setCurrentPage,from,show,color,center,goTo}) {
   const data=useData()
-
   return (
     <nav aria-label="Page navigation example" className={`my-[30px] px-2 delay-100 ease-in transition ${!show ? 'opacity-0 pointer-events-none':''}`}>
       <div className={`flex ${center ? 'justify-center':''} w-full`}>
         <ul className={`inline-flex -space-x-px text-base h-10`}>
           
           <li onClick={()=>{
+            if(goTo) goTo()
             setCurrentPage(current-1)
             data.handleLoaded('remove',from)
           }} className={`${current==1 ? 'opacity-40 pointer-events-none':''}`}>
@@ -23,6 +22,7 @@ function BasicPagination({total,current,last,setCurrentPage,from,show,color,cent
                 if(_i+1==current){
                   return
                 }
+                if(goTo) goTo()
                 setCurrentPage(_i+1)
                 data.handleLoaded('remove',from)
               }}>
@@ -33,6 +33,7 @@ function BasicPagination({total,current,last,setCurrentPage,from,show,color,cent
 
           <li className={`${current==last || total==0 ? 'opacity-40 pointer-events-none':''}`}>
             <a onClick={()=>{
+               if(goTo) goTo()
               setCurrentPage(current+1)
               data.handleLoaded('remove',from)
             }} className="flex items-center cursor-pointer justify-center px-4 h-10 leading-tight text-gray-500 bg-white border border-gray-300 rounded-e-lg hover:bg-gray-100 hover:text-gray-700">{t('common.next')}</a>

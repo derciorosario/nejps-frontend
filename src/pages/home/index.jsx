@@ -38,10 +38,12 @@ function App({}) {
 
   const navigate = useNavigate()
 
+  /** title_pt: 'Ajude-nos a salvar pessoas em situação de rua',
+      title_en: 'Help us save homeless people', */
   const heroContent = [
     {
-      title_pt: 'Ajude-nos a salvar pessoas em situação de rua',
-      title_en: 'Help us save homeless people',
+      title_pt: 'Ajude-nos a levar esperança a quem mais precisa',
+      title_en: 'Help us bring hope to those in need',
       paragraph_en: 'Together, we can make a difference in the lives of those who have lost everything. Your support means hope.',
       paragraph_pt: 'Juntos, podemos fazer a diferença na vida de quem perdeu tudo. Seu apoio é sinônimo de esperança.',
     },
@@ -119,7 +121,7 @@ function App({}) {
                                       }} className="text-rose-600 hover:bg-rose-700 hover:text-white bg-white text-sm rounded px-4 py-3">{t('common.become-member')}</button>
                                       <button onClick={()=>{
                                            navigate('/campaigns')
-                                      }} className="bg-rose-600 hover:bg-rose-700 text-white text-sm rounded px-4 py-3">{t('common.our-campaigns')}</button>
+                                      }} className="bg-rose-600 hover:bg-rose-700 text-white text-sm rounded px-4 py-3">{t('common.our-causes')}</button>
                                     </div>
                                   </div>
                                 )})}
