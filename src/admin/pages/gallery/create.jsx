@@ -286,13 +286,7 @@ export default function GalleryApp() {
               <div className="absolute top-2 right-2 flex gap-2">
                 <button
                   onClick={()=>{
-
-                      if(editingImageId == img.id){
-                        cancelEditing()
-                      }else{
-                        handleDeleteImage(img.id)
-                      }
-
+                    handleDeleteImage(img.id)
                   }}
                   className="bg-red-600 text-white rounded-full p-2 opacity-0 max-md:opacity-100 group-hover:opacity-100 transition"
                   title="Remover"
@@ -300,7 +294,14 @@ export default function GalleryApp() {
                   <FaTrash size={12} />
                 </button>
                 <button
-                  onClick={() => startEditing(img.id)}
+                  onClick={() => {
+                    if(editingImageId == img.id){
+                      cancelEditing()
+                    }else{
+                      startEditing(img.id)
+                    }
+                    
+                  }}
                   className="bg-blue-600 text-white rounded-full p-2 opacity-0 max-md:opacity-100 group-hover:opacity-100 transition"
                   title="Editar título"
                 >
