@@ -148,7 +148,7 @@ function FileInput({_upload,label,res,r,onlyImages,cannotRemove,cannotUpload}) {
              </div>}
 
               {lastFile && <div onClick={()=>{
-                  setUpload(prev=>({...prev,uploading:true,
+                  setUpload(prev=>({...prev,
                     uploading:false,
                     filename:lastFile,
                     progress:0}))

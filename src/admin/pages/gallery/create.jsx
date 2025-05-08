@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { FaPlus, FaTrash } from 'react-icons/fa';
+import { FaPlus, FaTrash, FaEdit, FaSave, FaTimes } from 'react-icons/fa';
 import axios from 'axios';
 import DefaultAdminLayout from '../../layout/DefaultAdminLayout';
 import { useData } from '../../../contexts/DataContext';
@@ -12,8 +12,9 @@ export default function GalleryApp() {
   const [loading, setLoading] = useState(false);
   const [newCategoryPt, setNewCategoryPt] = useState('');
   const [newCategoryEn, setNewCategoryEn] = useState('');
+  const [editingImageId, setEditingImageId] = useState(null);
+  const [imageTitles, setImageTitles] = useState({});
 
-  
   useEffect(() => {
     const fetchData = async () => {
       setLoading(true);
@@ -25,6 +26,16 @@ export default function GalleryApp() {
 
         setCategories([{ id: 0, name_pt: 'Todos', name_en: 'All' }, ...categoriesRes.data]);
         setImages(imagesRes.data);
+        
+        // Initialize titles
+        const titles = {};
+        imagesRes.data.forEach(img => {
+          titles[img.id] = {
+            title_pt: img.title_pt || '',
+            title_en: img.title_en || ''
+          };
+        });
+        setImageTitles(titles);
       } catch (error) {
         console.error('Failed to fetch data:', error);
         alert('Erro ao carregar dados da galeria.');
@@ -50,6 +61,13 @@ export default function GalleryApp() {
 
       const response = await axios.post(`${data.APP_BASE_URL}/api/upload-image`, formData);
       setImages(prev => [...prev, response.data]);
+      setImageTitles(prev => ({ 
+        ...prev, 
+        [response.data.id]: { 
+          title_pt: '', 
+          title_en: '' 
+        } 
+      }));
     } catch (error) {
       console.error('Upload failed:', error);
       alert('Erro ao enviar imagem!');
@@ -65,6 +83,11 @@ export default function GalleryApp() {
     try {
       await axios.get(`${data.APP_BASE_URL}/api/delete-image/${id}`);
       setImages(prev => prev.filter(img => img.id !== id));
+      
+      // Remove title from state
+      const newTitles = { ...imageTitles };
+      delete newTitles[id];
+      setImageTitles(newTitles);
     } catch (error) {
       console.error('Failed to delete image:', error);
       alert('Erro ao excluir imagem!');
@@ -102,6 +125,16 @@ export default function GalleryApp() {
       await axios.get(`${data.APP_BASE_URL}/api/categories/${id}`);
       setCategories(prev => prev.filter(cat => cat.id !== id));
       setImages(prev => prev.filter(img => img.categoryId !== id));
+      
+      // Remove titles of deleted images
+      const newTitles = { ...imageTitles };
+      images.forEach(img => {
+        if (img.categoryId === id) {
+          delete newTitles[img.id];
+        }
+      });
+      setImageTitles(newTitles);
+      
       if (selectedCategoryId == id) setSelectedCategoryId(0);
     } catch (error) {
       console.error('Erro ao apagar categoria:', error);
@@ -109,6 +142,51 @@ export default function GalleryApp() {
     } finally {
       setLoading(false);
     }
+  };
+
+  const startEditing = (id) => {
+    setEditingImageId(id);
+  };
+
+  const cancelEditing = () => {
+    setEditingImageId(null);
+  };
+
+  const saveTitle = async (id) => {
+    setLoading(true);
+    try {
+      await axios.post(`${data.APP_BASE_URL}/api/update-image-title`, {
+        id,
+        title_pt: imageTitles[id]?.title_pt || '',
+        title_en: imageTitles[id]?.title_en || ''
+      });
+      
+      // Update local images state
+      setImages(prev => prev.map(img => 
+        img.id === id ? { 
+          ...img, 
+          title_pt: imageTitles[id]?.title_pt || '', 
+          title_en: imageTitles[id]?.title_en || '' 
+        } : img
+      ));
+      
+      setEditingImageId(null);
+    } catch (error) {
+      console.error('Failed to update title:', error);
+      alert('Erro ao atualizar título!');
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleTitleChange = (id, field, value) => {
+    setImageTitles(prev => ({
+      ...prev,
+      [id]: {
+        ...prev[id],
+        [field]: value
+      }
+    }));
   };
 
   const filteredImages = selectedCategoryId == 0
@@ -195,24 +273,92 @@ export default function GalleryApp() {
         </div>
 
         {/* Gallery */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
           {filteredImages.map(img => (
-            <div key={img.id} className="relative group rounded-lg overflow-hidden shadow-md">
+            <div key={img.id} className="relative group rounded-lg overflow-hidden shadow-md bg-white">
               <img
                 src={`${data.APP_BASE_URL}/file/${img.url?.replaceAll(' ', '%20')}`}
                 alt="Uploaded"
                 className="w-full h-56 object-cover group-hover:scale-105 transition-transform duration-300"
               />
-              <button
-                onClick={() => handleDeleteImage(img.id)}
-                className="absolute top-2 right-2 bg-red-600 text-white rounded-full p-2 opacity-0 max-md:opacity-100 group-hover:opacity-100 transition"
-                title="Remover"
-              >
-                &times;
-              </button>
-              <div className="absolute bottom-0 left-0 right-0 bg-black bg-opacity-50 text-white text-center text-sm py-1">
-                {categories.find(c => c.id == img.categoryId)?.name_pt}
+              
+              {/* Image actions */}
+              <div className="absolute top-2 right-2 flex gap-2">
+                <button
+                  onClick={()=>{
+
+                      if(editingImageId == img.id){
+                        cancelEditing()
+                      }else{
+                        handleDeleteImage(img.id)
+                      }
+
+                  }}
+                  className="bg-red-600 text-white rounded-full p-2 opacity-0 max-md:opacity-100 group-hover:opacity-100 transition"
+                  title="Remover"
+                >
+                  <FaTrash size={12} />
+                </button>
+                <button
+                  onClick={() => startEditing(img.id)}
+                  className="bg-blue-600 text-white rounded-full p-2 opacity-0 max-md:opacity-100 group-hover:opacity-100 transition"
+                  title="Editar título"
+                >
+                  <FaEdit size={12} />
+                </button>
               </div>
+              
+              {/* Title display/edit area */}
+              <div className="p-3">
+                {editingImageId === img.id ? (
+                  <div className="flex flex-col gap-2">
+                    <div className="flex flex-col gap-2">
+                      <input
+                        type="text"
+                        value={imageTitles[img.id]?.title_pt || ''}
+                        onChange={(e) => handleTitleChange(img.id, 'title_pt', e.target.value)}
+                        className="border border-gray-300 p-2 rounded-md w-full"
+                        placeholder="Título (pt)"
+                      />
+                      <input
+                        type="text"
+                        value={imageTitles[img.id]?.title_en || ''}
+                        onChange={(e) => handleTitleChange(img.id, 'title_en', e.target.value)}
+                        className="border border-gray-300 p-2 rounded-md w-full"
+                        placeholder="Título (en)"
+                      />
+                    </div>
+                    <div className="flex justify-end gap-2">
+                      <button
+                        onClick={cancelEditing}
+                        className="text-gray-500 hover:text-gray-700"
+                      >
+                        <FaTimes />
+                      </button>
+                      <button
+                        onClick={() => saveTitle(img.id)}
+                        className="text-green-500 hover:text-green-700"
+                      >
+                        <FaSave />
+                      </button>
+                    </div>
+                  </div>
+                ) : (
+                  <div className="text-center min-h-[40px]">
+                    {img.title_pt || img.title_en ? (
+                      <div>
+                        <p className="font-medium">{(img.title_pt || img.title_en)}</p>
+                      </div>
+                    ) : (
+                      <p className="text-gray-400 italic">Sem título</p>
+                    )}
+                  </div>
+                )}
+              </div>
+              
+              {editingImageId != img.id && <div className="absolute bottom-0 left-0 right-0 bg-black pointer-events-none bg-opacity-50 text-white text-center text-sm py-1">
+                {categories.find(c => c.id == img.categoryId)?.name_pt}
+              </div>}
             </div>
           ))}
         </div>
@@ -227,7 +373,6 @@ export default function GalleryApp() {
           </div>
         )}
       </div>
-
     </DefaultAdminLayout>
   );
 }

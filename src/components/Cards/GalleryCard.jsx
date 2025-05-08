@@ -37,6 +37,7 @@ const ImageGallery = () => {
   const allImages = (data._gallery_categories.data || []).flatMap((cat) =>
     cat.images.map((img) => ({
       ...img,
+      category:cat,
       src: `${data.APP_BASE_URL+"/file/"+img.url}`,
       categoryId: cat.id,
     }))
@@ -84,9 +85,10 @@ const ImageGallery = () => {
         columnClassName="bg-clip-padding"
       >
         {filteredImages.map((img, index) => (
+          
           <div
             key={img.id}
-            className="transition-opacity duration-500 ease-in-out opacity-0 animate-fade-in bg-gray-400"
+            className="transition-opacity relative duration-500 ease-in-out opacity-0 animate-fade-in bg-gray-400"
           >
             <img
               src={img.src}
@@ -94,8 +96,12 @@ const ImageGallery = () => {
               className="w-full rounded mb-4 shadow-md cursor-pointer active:opacity-95 md:hover:scale-105 transition-transform"
               onClick={() => openModal(index)}
             />
+             {(img['title_'+i18next.language] /**|| img.category['name_'+i18next.language] */) && <div className="absolute bottom-2 left-2 text-white bg-black bg-opacity-40 px-2 py-1 rounded-md">
+                      {img['title_'+i18next.language]/**|| img.category['name_'+i18next.language] */}
+             </div>}
           </div>
         ))}
+
       </Masonry>
 
       {/* Modal */}
