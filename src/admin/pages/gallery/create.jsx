@@ -258,6 +258,7 @@ export default function GalleryApp() {
             id="file-upload"
             type="file"
             className="hidden"
+            accept={['.jpg', '.jpeg', '.png', '.gif', '.bmp']}
             onChange={handleFileChange}
             disabled={selectedCategoryId == 0}
           />

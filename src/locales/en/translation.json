@@ -17,6 +17,8 @@
         "donations": "Your donations are essential for us to continue our mission. With your help, we can reach more people and provide the necessary support to improve lives and create opportunities for those who need it most."
     },
     "common": {
+    "read-more":"Read more",
+    "campaign-details":"Campaign Details",
     "some-donations":"Some donations",
     "age": "Age",
     "_location": "Address",

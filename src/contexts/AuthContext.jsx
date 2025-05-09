@@ -17,7 +17,6 @@ export const AuthProvider = ({ children }) => {
             window.location.href="/login"
       }
    }
-
     const fetchUserData = async () => {
 
       if(!localStorage.getItem('token')){

@@ -5,18 +5,22 @@ import {
   MapPin,
   ChevronRight,
   Calendar,
-  Play
+  Play,
+  ArrowRight
 } from "lucide-react";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import i18next, { t } from "i18next";
 import { useData } from "../../contexts/DataContext";
+import { useNavigate } from "react-router-dom";
 
 export default function HeroDonations({YouTubeVideoLink,setYouTubeVideoLink,showDonationDialog,setShowDonationDialog,showHowToDonateDialog, setShowHowToDonateDialog}) {
   
   const data=useData()
   const hasMultiple = (data._home_campaigns.data || []).length > 1;
+  const navigate=useNavigate()
   
+
   const settings = {
     infinite: hasMultiple,
     speed: 700,
@@ -54,16 +58,21 @@ export default function HeroDonations({YouTubeVideoLink,setYouTubeVideoLink,show
                     key={index}
                     className="w-full"
                   >
+
                   <div  className="min-w-full grid grid-cols-1 md:grid-cols-2 bg-white shadow overflow-hidden">
       
-                  <div className="relative min-h-[350px] bg-gray-300">
+                  <div className="relative md:min-h-[350px] bg-gray-300">
                   <img
                     src={data.APP_BASE_URL+"/file/"+profile.image_filename}
                     alt=""
-                    className={`w-full h-full object-cover ${!profile.image_filename ? 'opacity-0':''}`}
+                    className={`w-full cursor-pointer ${!profile.youtube_link ? 'hover:scale-105':''} h-full max-md:h-auto object-cover ${!profile.image_filename ? 'opacity-0':''}`}
                   />
 
-                   <div className="absolute w-full inset-0 flex items-center justify-center">
+                   <div onClick={()=>{
+                       if(!profile.youtube_link){
+                        navigate('/campaign/' + profile.id);
+                       }
+                   }} className="absolute w-full inset-0 flex items-center justify-center">
                           {profile.youtube_link && <div  onClick={()=>setYouTubeVideoLink(profile.youtube_link)} className="bg-rose-600 cursor-pointer w-16 h-16 rounded-full flex items-center justify-center text-white">
                             <Play size={28} />
                           </div>}
@@ -96,8 +105,18 @@ export default function HeroDonations({YouTubeVideoLink,setYouTubeVideoLink,show
                           </div>
                         </div>
 
-                        {profile[`goal_`+i18next.language] && <p className="text-gray-700 mb-4"><span className="font-medium text-[15px] text-gray-800 mr-2">{t('common.aim')}:</span>{profile[`goal_`+i18next.language]}</p>}
-                        <p className="text-gray-700 mb-4 text-justify">{profile[`description_`+i18next.language]}</p>
+                        {profile[`goal_`+i18next.language] && <p className="text-gray-700 mb-2"><span className="font-medium text-[15px] text-gray-800 mr-2">{t('common.aim')}:</span>{profile[`goal_`+i18next.language]}</p>}
+                         <button
+                                  onClick={() => {
+                                    data.setSelectedCampaign(campaign);
+                                    navigate('/campaign/' + campaign.id);
+                                  }}
+                                  className="text-rose-600 flex items-center mb-4 underline hover:text-rose-700 text-sm font-medium"
+                                >
+                                  {t("common.read-more")} <ChevronRight size={17}/>
+                                </button>
+                                
+                        {/**<p className="text-gray-700 mb-4 text-justify">{profile[`description_`+i18next.language]}</p> */}
                         <div className={`flex justify-between text-sm mb-1 ${profile.goal==0 ? 'mb-4':''}`}>
                           <span className="text-rose-600 font-semibold">
                             {t('common.raised')} {data._cn(raised)}MZN

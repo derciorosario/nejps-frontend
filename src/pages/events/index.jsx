@@ -32,7 +32,6 @@ function App({}) {
   },[pathname,search,currentPage])
 
 
-
   useEffect(()=>{
   if(data.updateTable || updateFilters){
         data.setUpdateTable(null)

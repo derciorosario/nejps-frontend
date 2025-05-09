@@ -1,5 +1,5 @@
 import React from "react";
-import { CalendarDays, Goal, MapPin, Target } from "lucide-react";
+import { CalendarDays, ChevronRight, Goal, MapPin, Target } from "lucide-react";
 import i18next, { t } from "i18next";
 import { useNavigate } from "react-router-dom";
 import { useData } from "../../contexts/DataContext";
@@ -49,15 +49,27 @@ const CampaignCard = ({ campaign, index, setShowDonationDialog, setShowHowToDona
         </div>
 
         {campaign[`goal_` + i18next.language] && (
-        <div className="flex items-center space-x-1 flex-1">
+        <div className="flex items-center space-x-1 flex-1 hidden">
           <Goal className="h-4 w-4 flex-shrink-0 inline mr-1 text-gray-600" />
         <span> {campaign[`goal_` + i18next.language]}</span>
         </div>
         )}
 
         <p className="text-sm text-gray-700 leading-snug text-justify">
-        {campaign[`description_` + i18next.language]}
+        <span className="mr-2">{data.text_l(campaign[`description_` + i18next.language],190)}</span>
+        <button
+          onClick={() => {
+            data.setSelectedCampaign(campaign);
+            navigate('/campaign/' + campaign.id);
+          }}
+          className="text-rose-600 underline hover:text-rose-700 text-sm font-medium"
+        >
+          <div className="flex items-center">
+          {t("common.read-more")} <ChevronRight size={17}/>
+          </div>
+        </button>
         </p>
+
 
         {campaign.report_link && (
             <div

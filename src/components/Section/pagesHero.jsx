@@ -7,7 +7,7 @@ export default function PagesHero({name,img}) {
          <div className={`_hero-bg ${img} w-full h-[450px]  object-cover fixed left-0 top-[50px]`}>
          </div>
          <div style={{zIndex:2}} className="w-full h-full z-10 flex items-center px-10">
-                <h2 className="text-white uppercase text-[30px] font-bold">{name}</h2>
+                <h2 className="text-white uppercase max-md:text-[24px] text-[30px] font-bold">{name}</h2>
          </div>
     </div>
   )
