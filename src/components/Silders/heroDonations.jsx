@@ -70,7 +70,9 @@ export default function HeroDonations({YouTubeVideoLink,setYouTubeVideoLink,show
 
                    <div onClick={()=>{
                        if(!profile.youtube_link){
-                        navigate('/campaign/' + profile.id);
+                          data.setSelectedCampaign(profile);
+                          navigate('/campaign/' + profile.id);
+
                        }
                    }} className="absolute w-full inset-0 flex items-center justify-center">
                           {profile.youtube_link && <div  onClick={()=>setYouTubeVideoLink(profile.youtube_link)} className="bg-rose-600 cursor-pointer w-16 h-16 rounded-full flex items-center justify-center text-white">
@@ -108,8 +110,8 @@ export default function HeroDonations({YouTubeVideoLink,setYouTubeVideoLink,show
                         {profile[`goal_`+i18next.language] && <p className="text-gray-700 mb-2"><span className="font-medium text-[15px] text-gray-800 mr-2">{t('common.aim')}:</span>{profile[`goal_`+i18next.language]}</p>}
                          <button
                                   onClick={() => {
-                                    data.setSelectedCampaign(campaign);
-                                    navigate('/campaign/' + campaign.id);
+                                    data.setSelectedCampaign(profile);
+                                    navigate('/campaign/' + profile.id);
                                   }}
                                   className="text-rose-600 flex items-center mb-4 underline hover:text-rose-700 text-sm font-medium"
                                 >
