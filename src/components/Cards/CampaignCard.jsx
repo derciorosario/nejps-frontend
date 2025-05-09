@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { useData } from "../../contexts/DataContext";
 
 const CampaignCard = ({ campaign, index, setShowDonationDialog, setShowHowToDonateDialog }) => {
+
   let raised = campaign.donations.map(item => parseFloat(item.amount || 0)).reduce((acc, curr) => acc + curr, 0);
   if (campaign.insert_amount_raised_manually) {
     raised = parseFloat(campaign.raised || 0);
@@ -12,22 +13,24 @@ const CampaignCard = ({ campaign, index, setShowDonationDialog, setShowHowToDona
 
   const progress = Math.min((parseFloat(raised) / parseFloat(campaign.goal)) * 100, 100);
   const data = useData();
+  const navigate=useNavigate()
 
   return (
     <div className="rounded shadow-md overflow-hidden bg-white flex flex-col h-full">
       <div className="relative bg-gray-400">
         <img
-          
+          onClick={()=>{
+              data.setSelectedCampaign(campaign)
+              navigate('/campaign/'+campaign.id)
+          }}
           src={data.APP_BASE_URL + "/file/" + campaign.image_filename}
           alt={campaign[`title_` + i18next.language]}
-          className={`w-full h-64 object-cover ${!campaign.image_filename ? 'opacity-0':''}`}
+          className={`w-full h-64 object-cover hover:scale-105 transition-all cursor-pointer ease-in ${!campaign.image_filename ? 'opacity-0':''}`}
         />
         <div className="absolute bottom-2 left-2 text-white bg-black bg-opacity-40 px-2 py-1 rounded-md">
           {t("common.campaign-" + campaign.status)}
         </div>
       </div>
-
-
       <div className="p-6 space-y-4">
 
         <h3 className="text-[18px] font-semibold">{campaign[`title_` + i18next.language]}</h3>

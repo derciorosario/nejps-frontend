@@ -295,6 +295,11 @@ input, textarea, select {
   background-position: center;
   background-size: cover;
 }
+._hero-bg.img-1{
+  background-image: url(../src/assets/img/banner/1.jpg);
+  background-position: center;
+  background-size: cover;
+}
 
 ._join-bg{
   background-image: url(../src/assets/img/banner/10.jpg);

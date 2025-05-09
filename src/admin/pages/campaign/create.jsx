@@ -55,7 +55,6 @@ export default function CreateAdminCampaigns() {
     let v=true;
 
     if(
-       !form.aguardo ||
        !form.title_pt ||
        !form.title_en ||
        !form.image_filename ||

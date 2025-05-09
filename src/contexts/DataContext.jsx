@@ -380,10 +380,12 @@ export const DataProvider = ({ children }) => {
       })
 
       return params
- }
-    
+    }
 
+    const [selectedCampaign,setSelectedCampaign]=useState(null)
+    
     const value = {
+      selectedCampaign,setSelectedCampaign,
       getParamsFromFilters,
       _donors,
       _donors_list,

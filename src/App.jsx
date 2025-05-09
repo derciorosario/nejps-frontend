@@ -14,6 +14,9 @@ import ProtectedRoute from './admin/ProtectedRoute';
 import CreateAdminEvents from './admin/pages/events/create';
 import CreateGalleryAdmin from './admin/pages/gallery/create'
 import Contact from './pages/contact/index'
+import CampaignDetails from './pages/campaign-details/index'
+
+
 import AdminGalleryCategory from './admin/pages/gallery-categories/index'
 import CreateAdminGalleryCategory from './admin/pages/gallery-categories/create'
 import CreateAdminPaymentMethod from './admin/pages/payment-methods/create'
@@ -76,6 +79,7 @@ function App() {
           <Route path="/admin/donors"  element={<ProtectedRoute redirectTo="/login"><AdminDonors/></ProtectedRoute>} />
          
           <Route path="/campaigns"  element={<Campaigns/>} />
+          <Route path="/campaign/:id"  element={<CampaignDetails/>} />
           <Route path="/events"  element={<Events/>} />
           <Route path="/donations"  element={<Donations/>} />
           <Route path="/contact"  element={<Contact/>} />

@@ -9,7 +9,7 @@ import Feedback from '../components/PopUp/feedback'
 import { useLocation } from 'react-router-dom'
 import JoinAsDonor from '../components/Dialogs/join-us'
 
-function DefaultLayout({children}) {
+function DefaultLayout({children,loading}) {
   const [openSidebar,setOpenSidebar]=useState(false)
   const [showWhatsappOptions,setShowWhatsappOptions]=useState(false)
   const data=useData()
@@ -17,7 +17,7 @@ function DefaultLayout({children}) {
 
   return (
    <>
-     <Preloader showAnyway={(!data.initialized || !data.isPreloaderLoaded) && (pathname=="/" || pathname=="/campaigns")}/> 
+     <Preloader showAnyway={loading || (!data.initialized || !data.isPreloaderLoaded) && (pathname=="/" || pathname=="/campaigns")}/> 
      <Feedback/>
      <JoinAsDonor/>
     <div id={'top'} className="min-h-[100vh] relative overflow-hidden">

@@ -16,7 +16,7 @@ export const AuthProvider = ({ children }) => {
       if(!window.location.href.includes('/login')){
             window.location.href="/login"
       }
-  }
+   }
 
     const fetchUserData = async () => {
 
