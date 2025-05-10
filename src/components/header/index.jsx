@@ -45,6 +45,7 @@ function Header({}) {
     goto();
   }, []);
 
+
   return (
     <>
       <div id="home">
@@ -52,18 +53,18 @@ function Header({}) {
           {/* Top Bar */}
           <div className="bg-black text-white text-sm py-2 px-4 flex justify-between items-center w-full max-md:hidden">
             <div className="flex items-center space-x-6">
-              <div className="flex items-center space-x-1">
+              {data._settings?.address && <div className="flex items-center space-x-1">
                 <MapPin className="w-4 h-4" />
-                <span>Rua da Mozal, Bairro Juba</span>
-              </div>
-              <div className="flex items-center space-x-1">
+                <span>{data._settings?.address}</span>
+              </div>}
+              {data._settings?.email && <div className="flex items-center space-x-1">
                 <Mail className="w-4 h-4" />
-                <span>info@gmail.com</span>
-              </div>
-              <div className="flex items-center space-x-1">
+                <span>{data._settings?.email}</span>
+              </div>}
+              {data._settings?.contact && <div className="flex items-center space-x-1">
                 <Phone className="w-4 h-4" />
-                <span>+258 823751030</span>
-              </div>
+                <span>{data._settings?.contact}</span>
+              </div>}
             </div>
 
             <select

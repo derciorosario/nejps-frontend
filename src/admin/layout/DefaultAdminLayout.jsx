@@ -16,7 +16,8 @@ import {
     Mail,
     Newspaper,
     User,
-    Users
+    Users,
+    InfoIcon
 } from "lucide-react";
 import { useLocation, useNavigate } from "react-router-dom";
 import Delete from "../components/modals/delete";
@@ -191,6 +192,15 @@ export default function DefaultAdminLayout({children,addBtn,hide,refresh}) {
                                 <span className={`ml-3 flex-1 whitespace-nowrap ${pathname.includes('/admin/newsletter') || pathname.includes('/admin/newsletter/update') ? 'font-semibold':''}`}>Newspaper</span>
                              </a>
                           </li>
+
+                          <li>
+                             <a onClick={()=>{
+                                navigate('/admin/settings')
+                             }} className="text-base cursor-pointer text-gray-900 font-normal rounded-lg hover:bg-gray-100 flex items-center p-2 group">
+                                 <InfoIcon className="flex-shrink-0" size={24} />
+                                <span className={`ml-3 flex-1 whitespace-nowrap ${pathname.includes('/admin/settings') ? 'font-semibold':''}`}>Informação da página</span>
+                             </a>
+                        </li>
 
 
                           

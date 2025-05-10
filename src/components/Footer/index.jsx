@@ -59,6 +59,11 @@ const Footer = () => {
     setLoading(false)
 
     if(e.response){
+      if(e.response.status==409){
+        toast.success(t('common.added-successfully'))
+        setForm(initial_form)
+        return
+      }
       if(e.response.status==400){
           msg="Dados inválidos"
       }
@@ -93,23 +98,23 @@ const Footer = () => {
           <p className="text-gray-300 text-sm leading-relaxed mb-6">
             {t('common.about-footer-content')}
           </p>
-          <div className="flex items-center gap-3 mb-3">
+          {data._settings?.contact && <div className="flex items-center gap-3 mb-3">
             <FaPhone className="text-pink-600" />
-            <span>+258 823751030</span>
-          </div>
-          <div className="flex items-center gap-3 mb-3">
+            <span>{data._settings?.contact}</span>
+          </div>}
+          {data._settings?.website && <div className="flex items-center gap-3 mb-3">
             <FaHome className="text-pink-600" />
-            <span>abracosereno.com</span>
-          </div>
-          <div className="flex items-center gap-3 mb-3">
+            <span>{data._settings?.website}</span>
+          </div>}
+          {data._settings?.email && <div className="flex items-center gap-3 mb-3">
             <FaEnvelope className="text-pink-600" />
-            <span>info@gmail.com</span>
-          </div>
+            <span>{data._settings?.email}</span>
+          </div>}
 
-          <div className="flex items-center gap-3">
+          {data._settings?.address && <div className="flex items-center gap-3">
             <FaMapMarkerAlt className="text-pink-600" />
-            <span>Rua da Mozal, Bairro Juba</span>
-          </div>
+            <span>{data._settings?.address}</span>
+          </div>}
 
       </div>
 

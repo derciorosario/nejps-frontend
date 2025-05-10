@@ -89,11 +89,12 @@ export const DataProvider = ({ children }) => {
     const [_newsletter,setNewsLetter]=useState([])
     const [_donors,setDonors]=useState([])
     const [_donors_list,setDonorsList]=useState([])
-
+    const [_settings,setSettings]=useState([])
     const [_dashboard,setDasboard]=useState([])
     const [updateTable,setUpdateTable]=useState(null)
     
     let dbs=[
+      {name: 'settings', update: setSettings, get: _settings},
       {name: 'donors_list', update: setDonorsList, get: _donors },
       {name: 'volunteers', update: setVolunteers, get: _volunteers },
       {name: 'home_volunteers', update: setHomeVolunteers, get: _home_volunteers },
@@ -346,7 +347,7 @@ export const DataProvider = ({ children }) => {
    },[updateTable])
 
 
-    let required_data=['home_campaigns','gallery','gallery_categories','home_events','payment_methods','home_volunteers'] //
+    let required_data=['home_campaigns','gallery','gallery_categories','home_events','payment_methods','home_volunteers','settings'] //
 
     useEffect(()=>{ 
       if(initialized) return
@@ -360,7 +361,7 @@ export const DataProvider = ({ children }) => {
     },[])
 
     useEffect(()=>{ 
-        if(_loaded.includes('home_campaigns') && _loaded.includes('home_volunteers') && _loaded.includes('payment_methods') && _loaded.includes('gallery_categories') && _loaded.includes('home_events') && _loaded.includes('gallery')){
+        if(_loaded.includes('home_campaigns') && _loaded.includes('settings') && _loaded.includes('home_volunteers') && _loaded.includes('payment_methods') && _loaded.includes('gallery_categories') && _loaded.includes('home_events') && _loaded.includes('gallery')){
             setInitialized(true)
         }
     },[_loaded])
@@ -387,6 +388,7 @@ export const DataProvider = ({ children }) => {
     const value = {
       selectedCampaign,setSelectedCampaign,
       getParamsFromFilters,
+      _settings,
       _donors,
       _donors_list,
       isPreloaderLoaded,

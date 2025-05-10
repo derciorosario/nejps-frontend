@@ -40,8 +40,8 @@ export default function HeroDonations({YouTubeVideoLink,setYouTubeVideoLink,show
         <span className={` ${!hasMultiple ? '_hidden':''}`}><ChevronLeft className="text-rose-400" /></span> 
       </div>
     ),
-  };
-
+ };
+  
   
   return (
     <div className="font-sans py-10">

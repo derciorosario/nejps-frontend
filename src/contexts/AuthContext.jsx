@@ -6,7 +6,7 @@ export const AuthContext = createContext();
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [isAuthenticated, setIsAuthenticated] = useState(undefined);
-  let env="pro" 
+  let env="dev" 
   const [loading,setLoading]=useState(true)
   const [isLoading,setIsLoading]=useState(false)
   const DEV_SERVER_URL = 'http://localhost:3000';
@@ -25,6 +25,7 @@ export const AuthProvider = ({ children }) => {
       }
 
       try {
+        
         let response=await makeRequest({method:'get', url:`api/user`, error: ``,withToken:true},0);
         setUser(response)
         setIsAuthenticated(true)

@@ -16,7 +16,7 @@ import CreateGalleryAdmin from './admin/pages/gallery/create'
 import Contact from './pages/contact/index'
 import CampaignDetails from './pages/campaign-details/index'
 
-
+import CreateAdminSettings from './admin/pages/settings/create'
 import AdminGalleryCategory from './admin/pages/gallery-categories/index'
 import CreateAdminGalleryCategory from './admin/pages/gallery-categories/create'
 import CreateAdminPaymentMethod from './admin/pages/payment-methods/create'
@@ -45,6 +45,7 @@ function App() {
           <Route path="/admin/campaign/:id"  element={<ProtectedRoute redirectTo="/login"> <CreateAdminCampaign/> </ProtectedRoute>} />
           <Route path="/admin/campaigns"  element={<ProtectedRoute redirectTo="/login"><AdminCampaigns/></ProtectedRoute>}/>
 
+          <Route path="/admin/settings"  element={<ProtectedRoute redirectTo="/login"><CreateAdminSettings/></ProtectedRoute>}/>
           <Route path="/admin/gallery-categories/create"  element={<ProtectedRoute redirectTo="/login"> <CreateAdminGalleryCategory/> </ProtectedRoute>} />
           <Route path="/admin/gallery-category/:id"  element={<ProtectedRoute redirectTo="/login"> <CreateAdminGalleryCategory/> </ProtectedRoute>} />
           <Route path="/admin/gallery-categories"  element={<ProtectedRoute redirectTo="/login"><AdminGalleryCategory/></ProtectedRoute>}/>

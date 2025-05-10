@@ -10,8 +10,7 @@ import { Loader } from "lucide-react";
 
 export default function ContactForm() {
 
-  const data=useData()
-
+    const data=useData()
     const {pathname,search} = useLocation()
     const navigate = useNavigate()
     const [verified_inputs,setVerifiedInputs]=useState([])
@@ -47,7 +46,6 @@ export default function ContactForm() {
       setLoading(true)
     
       try{
-
         let form_data={
             ...form
         }
@@ -196,27 +194,27 @@ export default function ContactForm() {
                                       </div>
 
                                       <div className="flex flex-col gap-6 w-full md:w-1/3">
-                                        <div className="bg-white shadow-md p-6 rounded-lg text-center border border-gray-200">
+                                        {data._settings?.address && <div className="bg-white shadow-md p-6 rounded-lg text-center border border-gray-200">
                                           <div className="text-rose-600 text-4xl mb-2 flex justify-center">
                                             <FaMapMarkedAlt className="text-pink-600" />
                                           </div>
                                           <h3 className="font-semibold">{t('common.location')}</h3>
-                                          <p className="text-rose-600">Rua da Mozal, Bairro Juba</p>
-                                        </div>
-                                        <div className="bg-white shadow-md p-6 rounded-lg text-center border border-gray-200">
+                                          <p className="text-rose-600">{data._settings?.address}</p>
+                                        </div>}
+                                        {data._settings?.email && <div className="bg-white shadow-md p-6 rounded-lg text-center border border-gray-200">
                                           <div className="text-rose-600 text-4xl mb-2 flex justify-center">
                                           <FaEnvelope className="text-pink-600" />
                                           </div>
                                           <h3 className="font-semibold">{t('common.send-email')}</h3>
-                                          <p className="text-rose-600">info@gmail.com</p>
-                                        </div>
-                                        <div className="bg-white shadow-md p-6 rounded-lg text-center border border-gray-200">
+                                          <p className="text-rose-600">{data._settings?.email}</p>
+                                        </div>}
+                                        {data._settings?.contact && <div className="bg-white shadow-md p-6 rounded-lg text-center border border-gray-200">
                                           <div className="text-rose-600 text-4xl mb-2 flex justify-center">
                                             <FaPhone className="text-pink-600" />
                                           </div>
                                           <h3 className="font-semibold">{t('common.call-us')}</h3>
-                                          <p className="text-rose-600">+258 823751030</p>
-                                        </div>
+                                          <p className="text-rose-600">{data._settings?.contact}</p>
+                                        </div>}
                                       </div>
                                     </div>
 
