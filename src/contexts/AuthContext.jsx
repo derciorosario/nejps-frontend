@@ -6,7 +6,7 @@ export const AuthContext = createContext();
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [isAuthenticated, setIsAuthenticated] = useState(undefined);
-  let env="dev" 
+  let env="pro" 
   const [loading,setLoading]=useState(true)
   const [isLoading,setIsLoading]=useState(false)
   const DEV_SERVER_URL = 'http://localhost:3000';
