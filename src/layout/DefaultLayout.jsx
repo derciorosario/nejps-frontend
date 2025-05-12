@@ -17,7 +17,7 @@ function DefaultLayout({children,loading}) {
 
   return (
    <>
-     <Preloader showAnyway={loading || (!data.initialized || !data.isPreloaderLoaded) && (pathname=="/" || pathname=="/campaigns")}/> 
+     <Preloader showAnyway={(!data._loaded.includes('settings')) ||  loading || (!data.initialized || !data.isPreloaderLoaded) && (pathname=="/" || pathname=="/campaigns")}/> 
      <Feedback/>
      <JoinAsDonor/>
     <div id={'top'} className="min-h-[100vh] relative overflow-hidden">

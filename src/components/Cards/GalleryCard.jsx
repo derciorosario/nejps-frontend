@@ -107,7 +107,7 @@ const ImageGallery = () => {
               onLoad={() => handleImageLoad(img.id)}
             />
             {(img["title_" + i18next.language]) && (
-              <div className="absolute bottom-2 left-2 text-white bg-black bg-opacity-40 px-2 py-1 rounded-md">
+              <div className="absolute pointer-events-none bottom-2 left-2 text-white bg-black bg-opacity-40 px-2 py-1 rounded-md">
                 {img["title_" + i18next.language]}
               </div>
             )}

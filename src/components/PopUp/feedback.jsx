@@ -34,10 +34,9 @@ function Feedback({}) {
     }catch(e){
 
     
-        console.log({e})
       if(e.response?.status==500){
         toast.error(t('common.unexpected-error'))
-      }else  if(e.message=='Failed to fetch'){
+      }else  if(e.message=='Failed to fetch' || e.message=="Network Error"){
         toast.error(t('common.check-network'))
       }
 
@@ -47,16 +46,15 @@ function Feedback({}) {
   }
 
   return (
-    <div style={{zIndex:999}} className={`w-full flex pb-[100px] px-3 items-end justify-center ${!data._openPopUps.feedback ? 'opacity-0 pointer-events-none translate-y-[100px]':''} fixed left-0 top-0 h-[100vh] bg-[rgba(0,0,0,0.3)] z-50 transition ease-in delay-100`}>
+    <div style={{zIndex:999}} className={`w-full flex  px-3 items-center justify-center ${!data._openPopUps.feedback ? 'opacity-0 pointer-events-none translate-y-[100px]':''} fixed left-0 top-0 h-[100vh] bg-[rgba(0,0,0,0.3)] z-50 transition ease-in delay-100`}>
     
-          <div className="max-w-[600px] bg-white p-4 rounded-[0.3rem] _feedback">
-
-           <div class="flex justify-between mb-6">
+          <div className="max-w-[600px] bg-white p-4 rounded-[0.3rem] _feedback overflow-auto">
+            <div class="flex justify-between mb-6">
                 <h2 class="text-[20px] max-sm:text-[17px] flex-1 mr-3 lg:text-2xl font-bold text-gray-900">{t('common.share-your-option')}</h2>
                 <div onClick={()=>data._closeAllPopUps()} className="bg-rose-600 cursor-pointer hover:opacity-90 w-[40px] h-[40px] right-3 top-3 z-30 rounded-full flex items-center justify-center">
                 <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#fff"><path d="m256-200-56-56 224-224-224-224 56-56 224 224 224-224 56 56-224 224 224 224-56 56-224-224-224 224Z"/></svg>
             </div>
-           </div>
+          </div>
          <div class="mb-2">
             <div>
                 <label for="first_name" class="block mb-1 text-sm font-medium text-gray-900">{t('common.name')}<span className="text-gray-500 ml-1 text-[13px]">{`(opcional)`.toLowerCase()}</span></label>
@@ -72,7 +70,6 @@ function Feedback({}) {
                     class="px-0 w-full text-sm text-gray-900 border-0 focus:ring-0 focus:outline-none"
                     placeholder={t('common.leave-feedback')} required></textarea>
             </div>
-
             <div className={`flex items-center ${loading ? 'hidden':''}`}>
 
             <button onClick={()=>{

@@ -117,15 +117,15 @@ const Footer = () => {
           </div>}
 
       </div>
-
         {/* Recent Posts */}
         <div>
           <h2 className="text-xl font-bold uppercase mb-2">{t('common.recent-campaigns')}</h2>
           <div className="w-10 h-1 bg-pink-600 mb-4" />
           {((data._home_campaigns.data || []).filter((_,_i)=>_i <= 1)).map((post, index) => (
             <div onClick={()=>{
-                 navigate('/campaigns')
                  data._scrollToSection('home');
+                 data.setSelectedCampaign(post);
+                navigate('/campaign/' + post.id);
             }} className={`flex ${index!=0 ? 'border-t border-[#41414a]':''} items-start cursor-pointer hover:opacity-40 gap-4 py-3`} key={index}>
               <img src={data.APP_BASE_URL+"/file/"+post.image_filename} className={`w-16 h-16 ${!post.image_filename ? 'pointer-events-none bg-gray-300':''} object-cover rounded`} />
               <div>

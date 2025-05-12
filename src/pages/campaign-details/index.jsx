@@ -178,17 +178,12 @@ function App({}) {
               onLoad={() => setImageLoaded(true)}
               onClick={() => openGallery(-1)} // -1 indicates main image
             />
-            <h2 className="text-[30px] max-md:text-[20px] py-3">{data.selectedCampaign?.['title_' + i18next.language]}</h2>
-            <p className="text-sm text-gray-700 leading-snug text-justify">
-              {data.selectedCampaign?.[`description_` + i18next.language]}
-            </p>
-
+            <h2 className="text-[30px] max-md:text-[20px] py-5">{data.selectedCampaign?.['title_' + i18next.language]}</h2>
+           
             <div>
-
-
               {/* Goal and Donation Section */}
           
-              <div className="mt-12 bg-gray-50 p-6 rounded-lg">
+              <div className="bg-gray-50 p-6 rounded-lg">
                 {data.selectedCampaign?.['goal_'+i18next.language] && <div>
                 <h3 className="text-xl font-semibold mb-4">
                   {i18next.language === 'pt' ? 'Objectivo' : 'Goal'}
@@ -196,6 +191,10 @@ function App({}) {
                 <p className="mb-2">
                   {data.selectedCampaign?.[`goal_` + i18next.language]}
                 </p>
+                <p className="text-sm text-gray-700 leading-snug text-justify my-3">
+                  {data.selectedCampaign?.[`description_` + i18next.language]}
+                </p>
+
                 </div>}
                 {data.selectedCampaign?.goal!=0 && <div className="w-full bg-gray-200 rounded-full h-2 mb-2">
                   <div 

@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Routes, Route} from 'react-router-dom';
 import Home from './pages/home/index';
 import Campaigns from  './pages/campaigns/index'
 import Donations from './pages/donations/index'
+import Volunteers from './pages/volunteers/index'
 import Test from './pages/test';
 import NotFound from './pages/404';
 import AdminDashboard from './admin/pages/dashboard/index'
@@ -79,6 +80,8 @@ function App() {
           <Route path="/admin/donor/:id"  element={<ProtectedRoute redirectTo="/login"> <CreateAdminDonors/> </ProtectedRoute>} />
           <Route path="/admin/donors"  element={<ProtectedRoute redirectTo="/login"><AdminDonors/></ProtectedRoute>} />
          
+          
+          <Route path="/volunteers"  element={<Volunteers/>} />
           <Route path="/campaigns"  element={<Campaigns/>} />
           <Route path="/campaign/:id"  element={<CampaignDetails/>} />
           <Route path="/events"  element={<Events/>} />
