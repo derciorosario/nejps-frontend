@@ -21,7 +21,7 @@ function App({}) {
     
       useEffect(()=>{ 
             data.handleLoaded('remove',required_data)
-            data._get(required_data,{volunteers:{name:search,page:currentPage,h_n:true}}) 
+            data._get(required_data,{volunteers:{name:search,page:currentPage,h_n:true,status:'active'}}) 
       },[pathname,search,currentPage])
     
     
@@ -32,7 +32,7 @@ function App({}) {
             data.handleLoaded('remove',required_data)
             setCurrentPage(1)
             setLoading(false)
-            data._get(required_data,{volunteers:{name:search,page:1}}) 
+            data._get(required_data,{volunteers:{name:search,page:1,status:'active'}}) 
       }
      },[data.updateTable])
   
