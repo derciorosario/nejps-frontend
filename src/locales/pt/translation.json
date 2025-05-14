@@ -17,8 +17,22 @@
        "events":"Organizamos eventos para angariar fundos e promover a conscientização sobre diversas questões sociais. Junte-se a nós e faça parte de eventos que geram impacto positivo na nossa comunidade.",
        "donations":"As suas doações são fundamentais para que possamos continuar a nossa missão. Com a sua ajuda, conseguimos alcançar mais pessoas e oferecer o apoio necessário para melhorar vidas e criar oportunidades para quem mais precisa."
     },
+
+    "charityStats": {
+          "title": {
+            "pre": "Já realizámos até agora",
+            "middle": "campanhas de solidariedade para mais de",
+            "post": "pessoas em Moçambique"
+           },
+          "description": "Continuamos a semear esperança e solidariedade através de pequenas acções que se transformam em grandes impactos.",
+          "volunteers": "Voluntários",
+          "campaigns": "Campanhas",
+          "events": "Eventos",
+          "raised": "Arrecadado"
+    },   
     "common":{
-    "our-volunteers":"Nossos Voluntários",
+        "go-back":"Volar",
+        "our-volunteers":"Nossos Voluntários",
         "see-our-volunteers":"Conheça nosso volunteers",
         "read-more":"Ler mais",
         "campaign-details":"Detalhes da campanha",

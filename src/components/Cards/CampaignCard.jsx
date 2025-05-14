@@ -1,7 +1,7 @@
 import React from "react";
 import { CalendarDays, ChevronRight, Goal, MapPin, Target } from "lucide-react";
 import i18next, { t } from "i18next";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { useData } from "../../contexts/DataContext";
 
 const CampaignCard = ({ campaign, index, setShowDonationDialog, setShowHowToDonateDialog }) => {
@@ -14,6 +14,7 @@ const CampaignCard = ({ campaign, index, setShowDonationDialog, setShowHowToDona
   const progress = Math.min((parseFloat(raised) / parseFloat(campaign.goal)) * 100, 100);
   const data = useData();
   const navigate=useNavigate()
+  const {pathname} = useLocation()
 
   return (
     <div className="rounded shadow-md overflow-hidden bg-white flex flex-col h-full">
@@ -21,7 +22,7 @@ const CampaignCard = ({ campaign, index, setShowDonationDialog, setShowHowToDona
         <img
           onClick={()=>{
               data.setSelectedCampaign(campaign)
-              navigate('/campaign/'+campaign.id)
+              navigate('/campaign/' + campaign.id+"?from="+pathname);
           }}
           src={data.APP_BASE_URL + "/file/" + campaign.image_filename}
           alt={campaign[`title_` + i18next.language]}
@@ -60,7 +61,7 @@ const CampaignCard = ({ campaign, index, setShowDonationDialog, setShowHowToDona
         <button
           onClick={() => {
             data.setSelectedCampaign(campaign);
-            navigate('/campaign/' + campaign.id);
+            navigate('/campaign/' + campaign.id+"?from="+pathname);
           }}
           className="text-rose-600 underline hover:text-rose-700 text-sm font-medium"
         >
@@ -116,9 +117,9 @@ const CampaignCard = ({ campaign, index, setShowDonationDialog, setShowHowToDona
 
         <div className="w-full space-y-4 _bottom_ mt-auto">
           <div>
-            <p className="text-sm font-semibold text-rose-600">
+            {!(campaign.raised==0 && campaign.insert_amount_raised_manually) && <p className="text-sm font-semibold text-rose-600">
               {t("common.raised")} {data._cn(raised)}MZN
-            </p>
+            </p>}
             {campaign.goal != 0 && (
               <div className="w-full h-1 bg-gray-200 rounded-full mt-1">
                 <div
@@ -143,7 +144,7 @@ const CampaignCard = ({ campaign, index, setShowDonationDialog, setShowHowToDona
             >
               {t("common.donate")}
             </button>
-            {campaign.donations.length != 0 && (
+            {(campaign.donations.length != 0 && !(campaign.raised==0 && campaign.insert_amount_raised_manually)) && (
               <button
                 onClick={() => {
                   setShowDonationDialog(campaign);

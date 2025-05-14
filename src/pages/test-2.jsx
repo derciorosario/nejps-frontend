@@ -1,113 +1,40 @@
-import React from "react";
-import Slider from "react-slick";
-import {
-  Facebook,
-  Twitter,
-  Dribbble,
-  Instagram,
-  ChevronLeft,
-  ChevronRight,
-} from "lucide-react";
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
+import React from 'react';
 
-const profiles = [
-  {
-    name: "Dunald Minia",
-    role: "The Organizer",
-    dob: "12 Jan, 1995",
-    location: "California, USA",
-    description:
-      "Contented attending smallness it oh ye unwilling. Turned favour man two but lovers. Suffer should if waited common person little oh. Improved civility graceful sex few smallest screened settling. Likely active her warmly has",
-    image: "/organizer.jpg",
-  },
-  {
-    name: "Dunald Minia",
-    role: "The Organizer",
-    dob: "12 Jan, 1995",
-    location: "California, USA",
-    description:
-      "Contented attending smallness it oh ye unwilling. Turned favour man two but lovers. Suffer should if waited common person little oh. Improved civility graceful sex few smallest screened settling. Likely active her warmly has",
-    image: "/organizer.jpg",
-  }
- 
-];
-
-export default function CharityLandingPage() {
-  const settings = {
-    infinite: true,
-    speed: 700,
-    slidesToShow: 1,
-    slidesToScroll: 1,
-    autoplay: true,
-    autoplaySpeed: 5000,
-    arrows: true,
-    swipe: true,
-    nextArrow: (
-      <div className="absolute bg-red-400 -right-2 top-1/2 transform -translate-y-1/2 z-10">
-       <ChevronRight className="text-rose-400" />
-      </div>
-    ),
-    prevArrow: (
-      <div className="absolute -left-2 top-1/2 transform -translate-y-1/2 z-10">
-         <ChevronLeft className="text-rose-400" />
-      </div>
-    ),
-  };
-
+const CharityStats = () => {
   return (
-    <div className="font-sans bg-gray-100 py-10 px-4">
-      <div className="max-w-6xl mx-auto relative px-5">
-        <Slider {...settings}>
-          {profiles.map((profile, index) => (
-            <div
-            key={index}
-            className="w-full"
-         >
-            <div  className="min-w-full grid grid-cols-1 md:grid-cols-2 bg-white shadow rounded-lg overflow-hidden"
-         >
+    <div className="max-w-4xl mx-auto p-8 bg-white">
+      {/* Main heading and description */}
+      <div className="mb-12">
+        <h1 className="text-3xl md:text-4xl font-bold text-gray-800 mb-4">
+          We've funded <span className="text-blue-600">120,000</span> charity
+          projects for <span className="text-blue-600">20M</span> people around the
+          world.
+        </h1>
+        <p className="text-gray-600 text-lg leading-relaxed">
+          Continued attending smallness is on by unveiling Trumpet favour man two but lovers.
+          Safire should it waiter common person talk on. Improved charity graceful see few
+          smallest screened settings. Likely active her warmly has
+        </p>
+      </div>
 
-            <div className="w-[50%]">
-               <img
-              src={profile.image}
-              alt="Organizer"
-              className="w-full h-full object-cover"
-            />
-            </div>
-            <div className="p-8">
-              <h2 className="text-2xl font-bold text-gray-800">{profile.name}</h2>
-              <p className="text-rose-600 font-semibold uppercase text-sm mb-4">{profile.role}</p>
-              <div className="mb-2">
-                <span className="font-semibold">Date of birth:</span>
-                <span className="float-right">{profile.dob}</span>
-              </div>
-              <div className="mb-4">
-                <span className="font-semibold">Location:</span>
-                <span className="float-right">{profile.location}</span>
-              </div>
-              <p className="text-gray-700 mb-6">{profile.description}</p>
-              <div className="flex space-x-4">
-                <a href="#" className="bg-rose-500 text-white p-3 rounded-full hover:bg-rose-600">
-                  <Facebook size={16} />
-                </a>
-                <a href="#" className="bg-rose-500 text-white p-3 rounded-full hover:bg-rose-600">
-                  <Twitter size={16} />
-                </a>
-                <a href="#" className="bg-rose-500 text-white p-3 rounded-full hover:bg-rose-600">
-                  <Dribbble size={16} />
-                </a>
-                <a href="#" className="bg-rose-500 text-white p-3 rounded-full hover:bg-rose-600">
-                  <Instagram size={16} />
-                </a>
-              </div>
-            </div>
-
-            </div>
-         
-          </div>
-          ))}
-        </Slider>
+      {/* Stats grid */}
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+        <StatCard number="1345" label="Food Served" />
+        <StatCard number="83778" label="Volunteer" />
+        <StatCard number="276450" label="Blood Donated" />
+        <StatCard number="4567" label="Happy Children" />
       </div>
     </div>
   );
-}
+};
+
+const StatCard = ({ number, label }) => {
+  return (
+    <div className="bg-gray-50 p-6 rounded-lg text-center">
+      <div className="text-3xl font-bold text-blue-600 mb-2">{number}</div>
+      <div className="text-gray-600 uppercase text-sm font-medium">{label}</div>
+    </div>
+  );
+};
+
+export default CharityStats;

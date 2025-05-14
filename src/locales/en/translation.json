@@ -16,7 +16,21 @@
         "events": "We organize events to raise funds and promote awareness about various social issues. Join us and be part of events that create a positive impact in our community.",
         "donations": "Your donations are essential for us to continue our mission. With your help, we can reach more people and provide the necessary support to improve lives and create opportunities for those who need it most."
     },
+    
+   "charityStats": {
+        "title": {
+        "pre": "We have already carried out",
+        "middle": "charity campaigns for over",
+        "post": "people in Mozambique"
+        },
+        "description": "We continue to sow hope and solidarity through small actions that grow into great impacts.",
+        "volunteers": "Volunteers",
+        "campaigns": "Campaigns",
+        "events": "Events",
+        "raised": "Raised"
+    },
     "common": {
+    "go-back":"Go back",
     "our-causes":"Our causes",
     "our-volunteers":"Our volunteers",
     "see-our-volunteers":"Meet our volunteers",

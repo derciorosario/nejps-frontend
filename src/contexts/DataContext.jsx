@@ -347,7 +347,7 @@ export const DataProvider = ({ children }) => {
    },[updateTable])
 
 
-    let required_data=['home_campaigns','gallery','gallery_categories','home_events','payment_methods','home_volunteers','settings'] //
+    let required_data=['home_campaigns','gallery','gallery_categories','home_events','payment_methods','home_volunteers','settings','dashboard'] //
 
     useEffect(()=>{ 
       if(initialized) return
@@ -361,7 +361,7 @@ export const DataProvider = ({ children }) => {
     },[])
 
     useEffect(()=>{ 
-        if(_loaded.includes('home_campaigns') && _loaded.includes('settings') && _loaded.includes('home_volunteers') && _loaded.includes('payment_methods') && _loaded.includes('gallery_categories') && _loaded.includes('home_events') && _loaded.includes('gallery')){
+        if(_loaded.includes('home_campaigns') && _loaded.includes('dashboard') && _loaded.includes('settings') && _loaded.includes('home_volunteers') && _loaded.includes('payment_methods') && _loaded.includes('gallery_categories') && _loaded.includes('home_events') && _loaded.includes('gallery')){
             setInitialized(true)
         }
     },[_loaded])

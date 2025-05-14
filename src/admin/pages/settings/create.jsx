@@ -145,7 +145,7 @@ useEffect(()=>{
                     }} valid={valid} loading={loading} label={"Actualizar"}/>
                 </div>
           )}
-
+          
           >
         
           <FormLayout.Input 
@@ -180,8 +180,6 @@ useEffect(()=>{
               value={form.whatsapp_contact}
           />
 
-          
-
           <FormLayout.Input 
               verified_inputs={verified_inputs} 
               form={form}
@@ -203,7 +201,7 @@ useEffect(()=>{
           />
 
 
-        {/**  <FormLayout.Input 
+          <FormLayout.Input 
               verified_inputs={verified_inputs} 
               form={form}
               onBlur={() => setVerifiedInputs([...verified_inputs, 'facebook_link'])} 
@@ -221,15 +219,19 @@ useEffect(()=>{
               onChange={(e) => setForm({...form, whatsapp_link: e.target.value})} 
               field={'whatsapp_link'} 
               value={form.whatsapp_link}
-          /> */}
+          /> 
 
-
-
-
+            <FormLayout.Input 
+              verified_inputs={verified_inputs} 
+              form={form}
+              onBlur={() => setVerifiedInputs([...verified_inputs, 'youtube_link'])} 
+              label={'Youtube link'} 
+              onChange={(e) => setForm({...form, youtube_link: e.target.value})} 
+              field={'youtube_link'} 
+              value={form.youtube_link}
+          /> 
 
   </FormLayout>
-
-
           </div>
       </DefaultAdminLayout>
      </>

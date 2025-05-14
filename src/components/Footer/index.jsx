@@ -99,21 +99,21 @@ const Footer = () => {
             {t('common.about-footer-content')}
           </p>
           {data._settings?.contact && <div className="flex items-center gap-3 mb-3">
-            <FaPhone className="text-pink-600" />
-            <span>{data._settings?.contact}</span>
+            <FaPhone className="text-pink-600 shrink-0" />
+            <span className="w-full break-all">{data._settings?.contact}</span>
           </div>}
           {data._settings?.website && <div className="flex items-center gap-3 mb-3">
-            <FaHome className="text-pink-600" />
-            <span>{data._settings?.website}</span>
+            <FaHome className="text-pink-600 shrink-0" />
+            <span className="w-full break-all">{data._settings?.website}</span>
           </div>}
           {data._settings?.email && <div className="flex items-center gap-3 mb-3">
-            <FaEnvelope className="text-pink-600" />
-            <span>{data._settings?.email}</span>
+            <FaEnvelope className="text-pink-600 shrink-0" />
+            <span className="w-full break-all">{data._settings?.email}</span>
           </div>}
 
           {data._settings?.address && <div className="flex items-center gap-3">
-            <FaMapMarkerAlt className="text-pink-600" />
-            <span>{data._settings?.address}</span>
+            <FaMapMarkerAlt className="text-pink-600 shrink-0" />
+            <span className="w-full break-all">{data._settings?.address}</span>
           </div>}
 
       </div>

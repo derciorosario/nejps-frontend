@@ -608,7 +608,6 @@ export default function CreateAdminCampaigns() {
                   label={'Valor arrecadado'}
                   onChange={(e) => setForm({ ...form, raised: e.target.value })}
                   field={'raised'}
-                  r={form.insert_amount_raised_manually}
                   value={form.raised}
                 />
               </div>

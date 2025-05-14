@@ -17,6 +17,7 @@ import ImageGallery from '../../components/Cards/GalleryCard';
 import DonationsDialog from '../../components/Dialogs/donations-dialog';
 import HowToDonateDialog from '../../components/Dialogs/how-to-donate-dialog';
 import VolunteersSlider from '../../components/Silders/volunteersSlider';
+import CharityStats from '../../components/Section/CharityStats';
 
 
 function App({}) {
@@ -61,7 +62,6 @@ function App({}) {
     }
   ];
   
-
  
   let aboutItems = [
     {
@@ -88,9 +88,9 @@ function App({}) {
       title_pt: "Objectivo",
       title_en: "Goal",
       paragraph_pt:
-        "Mobilizar recursos e pessoas para apoiar comunidades carenciadas, oferecendo ajuda concreta e contínua que melhore as condições de vida.",
+        "Mobilizar recursos e pessoas para apoiar comunidades e pessoas carenciadas, colocando DEUS no centro de todas operações, oferecendo ajuda concreta e contínua que melhore as condições de vida.",
       paragraph_en:
-        "To mobilize resources and people to support underprivileged communities, providing concrete and continuous help that improves living conditions.",
+        "Mobilize resources and people to support communities and those in need, placing GOD at the center of all operations, offering concrete and continuous help that improves living conditions.",
     },
   ];
   
@@ -100,7 +100,6 @@ function App({}) {
               <DonationsDialog show={showDonationDialog} setShow={setShowDonationDialog}/>
               <YouTubeVideoPopUp link={YouTubeVideoLink} setLink={setYouTubeVideoLink}/>
               <HowToDonateDialog show={showHowToDonateDialog} setShow={setShowHowToDonateDialog}/>
-              
               <DefaultLayout>
                       <section id="home" className="home-hero max-md:pt-[50px]  w-full bg-app_primary-main min-h-[120vh] max-md:min-h-[70vh] relative">
                                 <div className="hero-slider  top-0 left-0 absolute w-full h-full">
@@ -152,6 +151,7 @@ function App({}) {
                              {t('common.about-paragraph')}
                            </p>
                            <div className="space-y-6">
+
                              {aboutItems.map((i,_i)=>(
                                <div className="p-6 shadow">
                                    <div className="flex items-start gap-4 max-md:flex-col max-md:items-center">
@@ -168,9 +168,12 @@ function App({}) {
                                    </div>
                              </div>
                              ))}
-                            
                            </div>
                          </div>
+                       </section>
+
+                       <section className="w-full bg-[#111827]">
+                          <CharityStats/>
                        </section>
                        
                        {(data._home_campaigns.data || []).length!=0 && <section id="campaigns" className="bg-gray-100 pb-20">

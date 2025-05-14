@@ -1,100 +1,40 @@
-import React, { useState } from 'react';
+import React from 'react';
 
-const MemberForm = () => {
-  const [form, setForm] = useState({
-    nome: '',
-    email: '',
-    telefone: '',
-    mensagem: '',
-  });
-
-  const handleChange = (e) => {
-    setForm({ ...form, [e.target.name]: e.target.value });
-  };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    // Aqui você pode enviar os dados via fetch ou axios
-    console.log('Formulário enviado:', form);
-  };
-
+const CharityStats = () => {
   return (
-    <section className="bg-gray-100 py-12 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-3xl mx-auto bg-white p-8 rounded-2xl shadow">
-        <h2 className="text-2xl font-bold text-center text-gray-800 mb-6">
-          Formulário de Adesão
-        </h2>
-        <form onSubmit={handleSubmit} className="space-y-6">
-          <div>
-            <label htmlFor="nome" className="block text-sm font-medium text-gray-700">
-              Nome Completo
-            </label>
-            <input
-              type="text"
-              name="nome"
-              id="nome"
-              value={form.nome}
-              onChange={handleChange}
-              required
-              className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:ring-green-600 focus:border-green-600"
-            />
-          </div>
-
-          <div>
-            <label htmlFor="email" className="block text-sm font-medium text-gray-700">
-              E-mail
-            </label>
-            <input
-              type="email"
-              name="email"
-              id="email"
-              value={form.email}
-              onChange={handleChange}
-              required
-              className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:ring-green-600 focus:border-green-600"
-            />
-          </div>
-
-          <div>
-            <label htmlFor="telefone" className="block text-sm font-medium text-gray-700">
-              Telefone
-            </label>
-            <input
-              type="tel"
-              name="telefone"
-              id="telefone"
-              value={form.telefone}
-              onChange={handleChange}
-              className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:ring-green-600 focus:border-green-600"
-            />
-          </div>
-
-          <div>
-            <label htmlFor="mensagem" className="block text-sm font-medium text-gray-700">
-              Mensagem (opcional)
-            </label>
-            <textarea
-              name="mensagem"
-              id="mensagem"
-              rows="4"
-              value={form.mensagem}
-              onChange={handleChange}
-              className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:ring-green-600 focus:border-green-600"
-            ></textarea>
-          </div>
-
-          <div className="text-center">
-            <button
-              type="submit"
-              className="bg-green-600 text-white px-6 py-3 rounded-full text-lg font-medium hover:bg-green-700 transition"
-            >
-              Enviar Registo
-            </button>
-          </div>
-        </form>
+    <div className="max-w-4xl mx-auto p-8 bg-white">
+      {/* Main heading and description */}
+      <div className="mb-12">
+        <h1 className="text-3xl md:text-4xl font-bold text-gray-800 mb-4">
+          We've funded <span className="text-blue-600">120,000</span> charity
+          projects for <span className="text-blue-600">20M</span> people around the
+          world.
+        </h1>
+        <p className="text-gray-600 text-lg leading-relaxed">
+          Continued attending smallness is on by unveiling Trumpet favour man two but lovers.
+          Safire should it waiter common person talk on. Improved charity graceful see few
+          smallest screened settings. Likely active her warmly has
+        </p>
       </div>
-    </section>
+
+      {/* Stats grid */}
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+        <StatCard number="1345" label="Food Served" />
+        <StatCard number="83778" label="Volunteer" />
+        <StatCard number="276450" label="Blood Donated" />
+        <StatCard number="4567" label="Happy Children" />
+      </div>
+    </div>
   );
 };
 
-export default MemberForm;
+const StatCard = ({ number, label }) => {
+  return (
+    <div className="bg-gray-50 p-6 rounded-lg text-center">
+      <div className="text-3xl font-bold text-blue-600 mb-2">{number}</div>
+      <div className="text-gray-600 uppercase text-sm font-medium">{label}</div>
+    </div>
+  );
+};
+
+export default CharityStats;

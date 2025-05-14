@@ -12,13 +12,14 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import i18next, { t } from "i18next";
 import { useData } from "../../contexts/DataContext";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 export default function HeroDonations({YouTubeVideoLink,setYouTubeVideoLink,showDonationDialog,setShowDonationDialog,showHowToDonateDialog, setShowHowToDonateDialog}) {
   
   const data=useData()
   const hasMultiple = (data._home_campaigns.data || []).length > 1;
   const navigate=useNavigate()
+  const {pathname} = useLocation()
   
 
   const settings = {
@@ -47,40 +48,40 @@ export default function HeroDonations({YouTubeVideoLink,setYouTubeVideoLink,show
     <div className="font-sans py-10">
       <div className="max-w-6xl mx-auto relative md:px-5  overflow-hidden">
         <Slider {...settings}>
-          {((data._home_campaigns.data || []).filter((_,_i)=>_i <= 2)).map((profile, index) => {
-              let raised=profile.donations.map(item => parseFloat(item.amount || 0)).reduce((acc, curr) => acc + curr, 0)
-              if(profile.insert_amount_raised_manually){
-                 raised=parseFloat(profile.raised || 0)
+          {((data._home_campaigns.data || []).filter((_,_i)=>_i <= 2)).map((campaign, index) => {
+              let raised=campaign.donations.map(item => parseFloat(item.amount || 0)).reduce((acc, curr) => acc + curr, 0)
+              if(campaign.insert_amount_raised_manually){
+                 raised=parseFloat(campaign.raised || 0)
               }
+
               return (
                 (
                   <div
                     key={index}
                     className="w-full"
                   >
-
                   <div  className="min-w-full grid grid-cols-1 md:grid-cols-2 bg-white shadow overflow-hidden">
       
                   <div className="relative md:min-h-[350px] bg-gray-300">
                   <img
-                    src={data.APP_BASE_URL+"/file/"+profile.image_filename}
+                    src={data.APP_BASE_URL+"/file/"+campaign.image_filename}
                     alt=""
-                    className={`w-full cursor-pointer ${!profile.youtube_link ? 'hover:scale-105':''} h-full max-md:h-auto object-cover ${!profile.image_filename ? 'opacity-0':''}`}
+                    className={`w-full cursor-pointer ${!campaign.youtube_link ? 'hover:scale-105':''} h-full max-md:h-auto object-cover ${!campaign.image_filename ? 'opacity-0':''}`}
                   />
 
                    <div onClick={()=>{
-                       if(!profile.youtube_link){
-                          data.setSelectedCampaign(profile);
-                          navigate('/campaign/' + profile.id);
+                       if(!campaign.youtube_link){
+                          data.setSelectedCampaign(campaign);
+                          navigate('/campaign/' + campaign.id+"?from="+pathname);
 
                        }
                    }} className="absolute w-full inset-0 flex items-center justify-center">
-                          {profile.youtube_link && <div  onClick={()=>setYouTubeVideoLink(profile.youtube_link)} className="bg-rose-600 cursor-pointer w-16 h-16 rounded-full flex items-center justify-center text-white">
+                          {campaign.youtube_link && <div  onClick={()=>setYouTubeVideoLink(campaign.youtube_link)} className="bg-rose-600 cursor-pointer w-16 h-16 rounded-full flex items-center justify-center text-white">
                             <Play size={28} />
                           </div>}
                    </div>
                    <div className="absolute bottom-2 left-2 text-white bg-black bg-opacity-40 px-2 py-1 rounded">
-                                      {t('common.campaign-'+profile.status)}
+                         {t('common.campaign-'+campaign.status)}
                    </div>
                   </div>
                   <div className="p-8">
@@ -88,50 +89,50 @@ export default function HeroDonations({YouTubeVideoLink,setYouTubeVideoLink,show
                            {t('common.recent-campaigns')}
                         </p>
                         <h2 className="text-2xl font-bold text-gray-80-2">
-                          {profile[`title_`+i18next.language]}
+                          {campaign[`title_`+i18next.language]}
                         </h2>
                         <div className="text-sm flex flex-col text-gray-600 mb-2">
                           <div className="flex justify-between border-b py-2">
                               <span>{t('common.date')}</span>
                               <span className="flex items-center gap-1">
                                <Calendar size={16}/>
-                               {profile.date.split('T')[0]?.split('-')?.reverse()?.join('/')}
-                             { /*{profile.daysLeft < 0  ? -(profile.daysLeft) : profile.daysLeft} {profile.daysLeft == 0 ? "Hoje" : profile.daysLeft <= 1 ? `${i18next.language=="pt" ? 'Dias':'Days'}`: `${i18next.language=="pt" ? 'Dias atrás':'Days ago'}`}*/}
+                               {campaign.date.split('T')[0]?.split('-')?.reverse()?.join('/')}
+                               { /*{campaign.daysLeft < 0  ? -(campaign.daysLeft) : campaign.daysLeft} {campaign.daysLeft == 0 ? "Hoje" : campaign.daysLeft <= 1 ? `${i18next.language=="pt" ? 'Dias':'Days'}`: `${i18next.language=="pt" ? 'Dias atrás':'Days ago'}`}*/}
                               </span>
                           </div>
                           <div className="flex justify-between py-2">
                               <span>{t('common.location-target')}</span>
                               <span className="flex items-center gap-1">
-                                 <MapPin size={16} /> {profile.location}
+                                 <MapPin size={16} /> {campaign.location}
                               </span>
                           </div>
                         </div>
 
-                        {profile[`goal_`+i18next.language] && <p className="text-gray-700 mb-2"><span className="font-medium text-[15px] text-gray-800 mr-2">{t('common.aim')}:</span>{profile[`goal_`+i18next.language]}</p>}
-                         <button
+                        {campaign[`goal_`+i18next.language] && <p className="text-gray-700 mb-2"><span className="font-medium text-[15px] text-gray-800 mr-2">{t('common.aim')}:</span>{campaign[`goal_`+i18next.language]}</p>}
+                               <button
                                   onClick={() => {
-                                    data.setSelectedCampaign(profile);
-                                    navigate('/campaign/' + profile.id);
+                                    data.setSelectedCampaign(campaign);
+                                    navigate('/campaign/' + campaign.id+"?from="+pathname);
                                   }}
                                   className="text-rose-600 flex items-center mb-4 underline hover:text-rose-700 text-sm font-medium"
                                 >
                                   {t("common.read-more")} <ChevronRight size={17}/>
                                 </button>
                                 
-                        {/**<p className="text-gray-700 mb-4 text-justify">{profile[`description_`+i18next.language]}</p> */}
-                        <div className={`flex justify-between text-sm mb-1 ${profile.goal==0 ? 'mb-4':''}`}>
-                          <span className="text-rose-600 font-semibold">
+                        {/**<p className="text-gray-700 mb-4 text-justify">{campaign[`description_`+i18next.language]}</p> */}
+                        <div className={`flex justify-between text-sm mb-1 ${campaign.goal==0 ? 'mb-4':''}`}>
+                          {!(campaign.raised==0 && campaign.insert_amount_raised_manually) && <span className="text-rose-600 font-semibold">
                             {t('common.raised')} {data._cn(raised)}MZN
-                          </span>
-                          {profile.goal!=0 && <span className="font-bold text-gray-800">
-                            {t('common.goal')} {data._cn(profile.goal)}MZN
+                          </span>}
+                          {campaign.goal!=0 && <span className="font-bold text-gray-800">
+                            {t('common.goal')} {data._cn(campaign.goal)}MZN
                           </span>}
                           
                         </div>
-                        {profile.goal!=0 && <div className="w-full h-2 bg-gray-200 rounded-full overflow-hidden mb-4">
+                        {campaign.goal!=0 && <div className="w-full h-2 bg-gray-200 rounded-full overflow-hidden mb-4">
                           <div
                             className="h-full bg-rose-500"
-                            style={{ width: `${(raised / (profile.goal || null)) * 100}%` }}
+                            style={{ width: `${(raised / (campaign.goal || null)) * 100}%` }}
                           ></div>
                         </div>}
                         <div className="flex items-center gap-x-2">
@@ -140,15 +141,15 @@ export default function HeroDonations({YouTubeVideoLink,setYouTubeVideoLink,show
                           }} className="bg-rose-600 text-white px-6 py-3 rounded shadow hover:bg-rose-700">
                               {t('common.donate')}
                           </button>
-                         {(profile.donations.length!=0) && <button onClick={()=>{
-                             setShowDonationDialog(profile)                                 
+                         {(campaign.donations.length!=0 && !(campaign.raised==0 && campaign.insert_amount_raised_manually)) && <button onClick={()=>{
+                             setShowDonationDialog(campaign)                                 
                           }} className="text-rose-600 border border-rose-600 hover:bg-rose-700 hover:text-white bg-white text-sm rounded px-4 py-3">
                             {t('common.see-donations')}
                           </button>}
                               
                         </div>  
-                                {profile.report_link && <div onClick={()=>{
-                                  window.open(`${data.APP_BASE_URL}/file/${profile.report_link}`, '_blank')
+                                {campaign.report_link && <div onClick={()=>{
+                                  window.open(`${data.APP_BASE_URL}/file/${campaign.report_link}`, '_blank')
                                 }} className="bg-rose-100 text-rose-600 mt-4 cursor-pointer px-1 py-1 rounded items-center inline-flex">
                                                         <svg className="fill-rose-600 mr-2" height="18px" width="18px" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" 
                                                           viewBox="0 0 370.32 370.32" xml:space="preserve">

@@ -8,7 +8,7 @@ import DonationsDialog from '../../components/Dialogs/donations-dialog';
 import HowToDonateDialog from '../../components/Dialogs/how-to-donate-dialog';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import toast from 'react-hot-toast';
-import { FaTimes, FaChevronLeft, FaChevronRight } from 'react-icons/fa';
+import { FaTimes, FaChevronLeft, FaChevronRight, FaArrowLeft } from 'react-icons/fa';
 
 function App({}) {
   const data = useData();
@@ -73,7 +73,7 @@ function App({}) {
   }, [pathname]);
 
   useEffect(() => {
-    if (data.selectedCampaign && data.selectedCampaign?.image_filename) {
+    if (data.selectedCampaign && !data.selectedCampaign?.image_filename) {
       setImageLoaded(true);
     }
   }, [data.selectedCampaign]);
@@ -106,7 +106,6 @@ function App({}) {
     });
   };
 
-
   let raised = (data.selectedCampaign?.donations || []).map(item => parseFloat(item.amount || 0)).reduce((acc, curr) => acc + curr, 0);
   if (data.selectedCampaign?.insert_amount_raised_manually) {
     raised = parseFloat(data.selectedCampaign?.raised || 0);
@@ -121,7 +120,7 @@ function App({}) {
 
       {/* Gallery Popup */}
       {galleryPopup.isOpen && data.selectedCampaign?.images && (
-        <div style={{zIndex:99}} className="fixed inset-0 bg-black bg-opacity-90  flex items-center justify-center p-4">
+        <div style={{zIndex:99}} className="fixed inset-0 bg-black bg-opacity-90 flex items-center justify-center p-4">
           <button 
             onClick={closeGallery}
             className="absolute top-4 right-4 text-white text-3xl hover:text-gray-300 transition"
@@ -171,137 +170,154 @@ function App({}) {
       <DefaultLayout loading={!data.selectedCampaign || !imageLoaded}>
         <PagesHero img={'img-1'} name={t('common.campaign-details')} />
         <div className="relative bg-white">
-          <section className="py-20 max-w-[900px] mx-auto px-5">
-            <img 
-              className="w-full max-md:h-auto  h-auto object-cover cursor-pointer rounded" 
-              src={data.APP_BASE_URL + "/file/" + data.selectedCampaign?.image_filename} 
-              onLoad={() => setImageLoaded(true)}
-              onClick={() => openGallery(-1)} // -1 indicates main image
-            />
-            <h2 className="text-[30px] max-md:text-[20px] py-5">{data.selectedCampaign?.['title_' + i18next.language]}</h2>
-           
-            <div>
-              {/* Goal and Donation Section */}
-          
-              <div className="bg-gray-50 p-6 rounded-lg">
-                {data.selectedCampaign?.['goal_'+i18next.language] && <div>
-                <h3 className="text-xl font-semibold mb-4">
-                  {i18next.language === 'pt' ? 'Objectivo' : 'Goal'}
-                </h3>
-                <p className="mb-2">
-                  {data.selectedCampaign?.[`goal_` + i18next.language]}
-                </p>
-                <p className="text-sm text-gray-700 leading-snug text-justify my-3">
-                  {data.selectedCampaign?.[`description_` + i18next.language]}
-                </p>
+          <section className="py-20 max-w-[1000px] mx-auto px-5">
+            {/* Go Back Button */}
+            <button 
+              onClick={() => {
+                const params = new URLSearchParams(window.location.search);
+                const from = params.get('from');
+                if(from?.includes('campaigns')){
+                   navigate('/campaigns')
+                }else{
+                   navigate('/')
+                }
+              }}
+              className="flex items-center text-rose-600 hover:text-rose-700 mb-6 transition-colors"
+            >
+              <FaArrowLeft className="mr-2" />
+              {i18next.language === 'pt' ? 'Voltar' : 'Go back'}
+            </button>
 
-                </div>}
-                {data.selectedCampaign?.goal!=0 && <div className="w-full bg-gray-200 rounded-full h-2 mb-2">
-                  <div 
-                    className="bg-red-500 h-2 rounded-full" 
-                    style={{ 
-                      width: `${progress}%` 
-                    }}
-                  ></div>
-                  
-                </div>}
-                <div className="flex justify-between text-sm mb-4 mt-2">
-                  <span>
-                    {i18next.language === 'pt' ? 'Arrecadado' : 'Raised'}: {data._cn(raised)}MZN
-                  </span>
-                  {data.selectedCampaign?.goal!=0 && <span>
-                    {i18next.language === 'pt' ? 'Objectivo' : 'Goal'}: {data._cn(data.selectedCampaign?.goal)}MZN
-                  </span>}
-                </div>
+            <div className="bg-white rounded-lg shadow-md overflow-hidden">
+              <img 
+                className={`w-full h-auto object-cover  transition-opacity`} 
+                src={data.APP_BASE_URL + "/file/" + data.selectedCampaign?.image_filename} 
+                onLoad={() => setImageLoaded(true)}
+                alt={data.selectedCampaign?.['title_' + i18next.language]}
+              />
+              
+              <div className="p-6">
+                <h2 className="text-3xl max-md:text-2xl font-bold text-gray-800 mb-4">
+                  {data.selectedCampaign?.['title_' + i18next.language]}
+                </h2>
                 
-                <div className="flex items-center gap-x-2 relative">
-                            <button
-                              onClick={() => {
-                                setShowHowToDonateDialog(true);
-                              }}
-                              className="bg-rose-600 border-white border text-white px-6 py-3 rounded shadow hover:bg-rose-700"
-                            >
-                              {t("common.donate")}
-                            </button>
-                            {data.selectedCampaign?.donations.length != 0 && (
-                              <button
-                                onClick={() => {
-                                  setShowDonationDialog(data.selectedCampaign);
-                                }}
-                                className="text-rose-600 border border-rose-600 hover:bg-rose-700 hover:text-white bg-white text-sm rounded px-4 py-3"
-                              >
-                                {t("common.see-donations")}
-                              </button>
-                            )}
-                </div>
-              </div>
-           
+                {/* Goal and Donation Section */}
+                <div className="bg-gray-50 p-6 rounded-lg mb-8">
+                 
+                    <div className={`${data.selectedCampaign?.['goal_'+i18next.language] ? 'mb-6':''}`}>
+                      {data.selectedCampaign?.['goal_'+i18next.language] && (<>
+                        <h3 className="text-xl font-semibold mb-4 text-gray-800">
+                        {i18next.language === 'pt' ? 'Objectivo' : 'Goal'}
+                       </h3>
+                       <p className="mb-4 text-gray-700">
+                        {data.selectedCampaign?.[`goal_` + i18next.language]}
+                      </p>
+                      </>)}
+                     
+                      <p className="text-gray-600 leading-relaxed text-justify">
+                        {data.selectedCampaign?.[`description_` + i18next.language]}
+                      </p>
+                    </div>
 
-            {/* YouTube Video Section */}
-            {data.selectedCampaign?.youtube_link && (
-              <div className="mt-8">
-                <h3 className="text-xl font-semibold mb-4">
-                  {i18next.language === 'pt' ? 'Vídeo' : 'Video'}
-                </h3>
-                <div className="aspect-w-16 aspect-h-9">
-                  <button
-                    onClick={() => setYouTubeVideoLink(data.selectedCampaign?.youtube_link)}
-                    className="w-full h-64 bg-gray-200 flex items-center justify-center rounded-lg overflow-hidden relative"
-                  >
-                    <img
-                      src={`https://img.youtube.com/vi/${data.selectedCampaign?.youtube_link.split('v=')[1]}/hqdefault.jpg`}
-                      alt="YouTube thumbnail"
-                      className="w-full h-full object-cover"
-                    />
-                    <div className="absolute inset-0 flex items-center justify-center">
-                      <div className="w-16 h-16 bg-red-600 rounded-full flex items-center justify-center">
-                        <svg className="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 20 20">
-                          <path d="M6.3 2.841A1.5 1.5 0 004 4.11v11.78a1.5 1.5 0 002.3 1.269l9.344-5.89a1.5 1.5 0 000-2.538L6.3 2.84z"></path>
-                        </svg>
+                <div className="mb-4">
+                    {data.selectedCampaign?.goal!=0 && (<div className="w-full bg-gray-200 rounded-full h-3 mb-2">
+                        <div 
+                          className="bg-rose-600 h-3 rounded-full transition-all duration-500" 
+                          style={{ width: `${progress}%` }}
+                        ></div>
+                  </div> )}
+                      <div className="flex justify-between text-sm text-gray-700">
+                        {!(data.selectedCampaign?.raised==0 && data.selectedCampaign?.insert_amount_raised_manually) && <span>
+                          {i18next.language === 'pt' ? 'Arrecadado' : 'Raised'}: {data._cn(raised)}MZN
+                        </span>}
+                        {data.selectedCampaign?.goal!=0 && <span>
+                          {i18next.language === 'pt' ? 'Objectivo' : 'Goal'}: {data._cn(data.selectedCampaign?.goal)}MZN
+                        </span>}
                       </div>
-                    </div>
-                  </button>
-                </div>
-              </div>
-            )}
-
-
-            
-            </div>
-
-            {/* Campaign Images Gallery */}
-            {data.selectedCampaign?.images?.length > 0 && (
-              <div className="mt-12">
-                <h3 className="text-2xl font-semibold mb-6">
-                  {i18next.language === 'pt' ? 'Mais imagens' : 'More images'}
-                </h3>
-                
-                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
-                  {data.selectedCampaign?.images.map((image, index) => (
-                    <div 
-                      key={image.id} 
-                      className="rounded relative overflow-hidden shadow-md bg-white cursor-pointer hover:shadow-lg transition"
-                      onClick={() => openGallery(index)}
+                  </div>
+                  
+                  <div className="flex flex-wrap gap-4 mt-6">
+                    <button
+                      onClick={() => setShowHowToDonateDialog(true)}
+                      className="bg-rose-600 hover:bg-rose-700 text-white px-6 py-3 rounded-lg shadow-md transition-colors flex-1 min-w-[200px]"
                     >
-                      <img
-                        src={`${data.APP_BASE_URL}/file/${image.url?.replaceAll(' ', '%20')}`}
-                        alt={image[`title_${i18next.language}`] || 'Campaign image'}
-                        className="w-full h-48 object-cover"
-                      />
-                      
-                      {(image["title_" + i18next.language]) && (
-                         <div className="absolute bottom-2 left-2 text-white bg-black bg-opacity-40 px-2 py-1 rounded-md">
-                          {image["title_" + i18next.language]}
-                        </div>
-                     )}
-                    </div>
-                  ))}
+                      {t("common.donate")}
+                    </button>
+                    
+                    {(data.selectedCampaign?.donations.length != 0 && !(data.selectedCampaign?.raised==0 && data.selectedCampaign?.insert_amount_raised_manually)) && (
+                      <button
+                        onClick={() => setShowDonationDialog(data.selectedCampaign)}
+                        className="text-rose-600 border border-rose-600 hover:bg-rose-600 hover:text-white bg-white px-6 py-3 rounded-lg shadow-md transition-colors flex-1 min-w-[200px]"
+                      >
+                        {t("common.see-donations")}
+                      </button>
+                    )}
+                  </div>
                 </div>
-              </div>
-            )}
 
-            {/* Rest of your content (goal, donation button, video, etc.) */}
-            {/* ... */}
+                {/* YouTube Video Section */}
+                {data.selectedCampaign?.youtube_link && (
+                  <div className="mb-8">
+                    <h3 className="text-xl font-semibold mb-4 text-gray-800">
+                      {i18next.language === 'pt' ? 'Vídeo' : 'Video'}
+                    </h3>
+                    <div className="relative">
+                      <button
+                        onClick={() => setYouTubeVideoLink(data.selectedCampaign?.youtube_link)}
+                        className="w-full h-64 bg-gray-200 flex items-center justify-center rounded-lg overflow-hidden relative group"
+                      >
+                        <img
+                          src={`https://img.youtube.com/vi/${data.selectedCampaign?.youtube_link.split('v=')[1]}/hqdefault.jpg`}
+                          alt="YouTube thumbnail"
+                          className="w-full h-full object-cover group-hover:opacity-90 transition-opacity"
+                        />
+                        <div className="absolute inset-0 flex items-center justify-center bg-black bg-opacity-20 group-hover:bg-opacity-30 transition">
+                          <div className="w-16 h-16 bg-rose-600 rounded-full flex items-center justify-center transform group-hover:scale-110 transition">
+                            <svg className="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 20 20">
+                              <path d="M6.3 2.841A1.5 1.5 0 004 4.11v11.78a1.5 1.5 0 002.3 1.269l9.344-5.89a1.5 1.5 0 000-2.538L6.3 2.84z"></path>
+                            </svg>
+                          </div>
+                        </div>
+                      </button>
+                    </div>
+                  </div>
+                )}
+
+                {/* Campaign Images Gallery */}
+                {data.selectedCampaign?.images?.length > 0 && (
+                  <div>
+                    <h3 className="text-2xl font-semibold mb-6 text-gray-800">
+                      {i18next.language === 'pt' ? 'Mais imagens' : 'More images'}
+                    </h3>
+                    
+                    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+                      {data.selectedCampaign?.images.map((image, index) => (
+                        <div 
+                          key={image.id} 
+                          className="rounded-lg overflow-hidden shadow-md bg-white cursor-pointer hover:shadow-lg transition-transform hover:-translate-y-1 relative group"
+                          onClick={() => openGallery(index)}
+                        >
+                          <img
+                            src={`${data.APP_BASE_URL}/file/${image.url?.replaceAll(' ', '%20')}`}
+                            alt={image[`title_${i18next.language}`] || 'Campaign image'}
+                            className="w-full h-48 object-cover group-hover:opacity-90 transition-opacity"
+                          />
+                          
+                          {(image["title_" + i18next.language]) && (
+                            <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-20 transition-all duration-300 flex items-end p-3">
+                              <div className="text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                                {image["title_" + i18next.language]}
+                              </div>
+                            </div>
+                          )}
+
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                )}
+              </div>
+            </div>
           </section>
         </div>
       </DefaultLayout>
