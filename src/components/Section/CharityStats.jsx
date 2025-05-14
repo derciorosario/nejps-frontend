@@ -10,7 +10,7 @@ const CharityStats = () => {
   const peopleHelped = 300;
 
   return (
-    <div className="max-w-4xl mx-auto px-8 py-14">
+    <div className="max-w-[1000px] mx-auto px-8 py-14">
       {/* Título principal e descrição */}
       <div className="mb-12">
         <h1 className="text-3xl md:text-4xl font-bold text-white mb-4">
