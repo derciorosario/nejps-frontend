@@ -19,7 +19,7 @@ const FullPageSlider = ({activeSlide,setActiveSlide}) => {
     slidesToShow: 1,
     slidesToScroll: 1,
     autoplay: true,
-    autoplaySpeed: 9000,
+    autoplaySpeed: 10000,
     arrows: false,
     cssEase: 'linear',
     beforeChange: (current, next) => setActiveSlide(next),

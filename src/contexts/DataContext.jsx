@@ -107,7 +107,7 @@ export const DataProvider = ({ children }) => {
       {name: 'payment_methods', update: setPaymentMethods, get: _payment_methods },
       {name: 'newsletter', update: setNewsLetter, get: _newsletter },
       {name:'managers',update:setManagers,get:_managers},
-      {name:'dashboard',update:setDasboard,get:_managers},
+      {name:'dashboard',update:setDasboard,get:_dashboard},
       {name:'campaigns',update:setCampaigns,get:_campaigns},
       {name:'events',update:setEvents,get:_events},
       {name:'home_campaigns',update:setHomeCampaigns,get:_campaigns},
