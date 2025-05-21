@@ -41,26 +41,39 @@ function App({}) {
 
   /** title_pt: 'Ajude-nos a salvar pessoas em situação de rua',
       title_en: 'Help us save homeless people', */
-  const heroContent = [
-    {
-      title_pt: 'Ajude-nos a levar esperança a quem mais precisa',
-      title_en: 'Help us bring hope to those in need',
-      paragraph_en: 'Together, we can make a difference in the lives of those who have lost everything. Your support means hope.',
-      paragraph_pt: 'Juntos, podemos fazer a diferença na vida de quem perdeu tudo. Seu apoio é sinônimo de esperança.',
-    },
-    {
-      title_pt: 'Seja a esperança de alguém hoje',
-      title_en: 'Be someone’s hope today',
-      paragraph_en: 'A simple action can light up a life. Join our mission and bring change where it’s needed most.',
-      paragraph_pt: 'Uma ação simples pode iluminar uma vida. Junte-se à nossa missão e leve transformação onde mais precisa.',
-    },
-    {
-      title_pt: 'Estenda a mão e transforme vidas',
-      title_en: 'Lend a hand and change lives',
-      paragraph_en: 'A small gesture can mean everything to someone in need. Let’s build a future with dignity for all.',
-      paragraph_pt: 'Um pequeno gesto pode significar tudo para quem precisa. Vamos construir um futuro com dignidade para todos.',
-    }
-  ];
+const heroContent = [
+  {
+    title_pt: 'Ajude-nos a levar esperança a quem mais precisa',
+    title_en: 'Help us bring hope to those in need',
+    paragraph_en: 'Together, we can make a difference in the lives of those who have lost everything. Your support means hope.',
+    paragraph_pt: 'Juntos, podemos fazer a diferença na vida de quem perdeu tudo. Seu apoio é sinônimo de esperança.',
+  },
+  {
+    title_pt: 'Seja a esperança de alguém hoje',
+    title_en: 'Be someone’s hope today',
+    paragraph_en: 'A simple action can light up a life. Join our mission and bring change where it’s needed most.',
+    paragraph_pt: 'Uma ação simples pode iluminar uma vida. Junte-se à nossa missão e leve transformação onde mais precisa.',
+  },
+  {
+    title_pt: 'Doe amor, doe esperança',
+    title_en: 'Give love, give hope',
+    paragraph_en: 'Every contribution brings light to someone’s darkness. Be the reason someone smiles today.',
+    paragraph_pt: 'Cada contribuição leva luz à escuridão de alguém. Seja o motivo do sorriso de alguém hoje.',
+  },
+  {
+    title_pt: 'Estenda a mão e transforme vidas',
+    title_en: 'Lend a hand and change lives',
+    paragraph_en: 'A small gesture can mean everything to someone in need. Let’s build a future with dignity for all.',
+    paragraph_pt: 'Um pequeno gesto pode significar tudo para quem precisa. Vamos construir um futuro com dignidade para todos.',
+  },
+  {
+    title_pt: 'Juntos, podemos reconstruir sonhos',
+    title_en: 'Together, we can rebuild dreams',
+    paragraph_en: 'Many have lost everything, but with your help, we can give them a fresh start.',
+    paragraph_pt: 'Muitos perderam tudo, mas com a sua ajuda, podemos dar a eles um novo começo.',
+  }
+];
+
   
  
   let aboutItems = [

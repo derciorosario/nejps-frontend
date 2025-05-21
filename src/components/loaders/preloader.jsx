@@ -1,6 +1,5 @@
 import React from 'react'
 
-import LoadingImg from '../../assets/images/dark-logo-1-short.png'
 import { useData } from '../../contexts/DataContext'
 
 

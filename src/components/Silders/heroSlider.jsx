@@ -7,6 +7,8 @@ import { useData } from '../../contexts/DataContext';
 import Img1 from '../../assets/img/banner/1.jpg'
 import Img2 from '../../assets/img/banner/2.jpg'
 import Img3 from '../../assets/img/banner/3.jpg'
+import Img4 from '../../assets/img/banner/4.jpg'
+
 
 
 const FullPageSlider = ({activeSlide,setActiveSlide}) => {
@@ -28,7 +30,8 @@ const FullPageSlider = ({activeSlide,setActiveSlide}) => {
   let images=[
      Img1,
      Img2,
-     Img3
+     Img3,
+     Img4
   ]
   return (
     <Slider {...settings}>
