@@ -38,8 +38,8 @@ const CharityStats = () => {
 
 const StatCard = ({ value, label }) => (
   <div className="bg-gray-50 p-6 rounded-lg text-center">
-    <div className="text-3xl font-bold text-rose-600 mb-2">{value}</div>
-    <div className="text-gray-600 uppercase text-sm font-medium">{label}</div>
+    <div className="text-3xl font-bold text-rose-600 mb-2 max-md:text-[1.2rem]  break-all">{value}</div>
+    <div className="text-gray-600 uppercase text-sm font-medium break-all">{label}</div>
   </div>
 );
 

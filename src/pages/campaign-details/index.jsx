@@ -202,7 +202,7 @@ function App({}) {
                 </h2>
                 
                 {/* Goal and Donation Section */}
-                <div className="bg-gray-50 p-6 rounded-lg mb-8">
+                <div className="bg-gray-50 p-6 rounded-lg mb-8 max-md:px-0 max-md:bg-white">
                  
                     <div className={`${data.selectedCampaign?.['goal_'+i18next.language] ? 'mb-6':''}`}>
                       {data.selectedCampaign?.['goal_'+i18next.language] && (<>
