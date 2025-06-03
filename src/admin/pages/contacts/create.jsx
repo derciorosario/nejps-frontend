@@ -94,7 +94,7 @@ useEffect(()=>{
                      {name:'Criado em',value:form.createdAt?.split('T')[0]?.split('-')?.reverse()?.join('/') + " "+form.createdAt?.split('T')[1].slice(0,5)},
                      {name:'Mensagem',value:form.message || '-'},
                   ]}/>
-        </FormLayout>
+          </FormLayout>
 
 
           </div>

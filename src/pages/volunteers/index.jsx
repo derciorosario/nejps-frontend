@@ -43,19 +43,18 @@ function App({}) {
 
     return (
      <>
-               <DefaultLayout>
-                       <PagesHero  img={'img-1'} name={t('common.see-our-volunteers')}/>
-                       <div className="relative bg-white">
-                            <section className="pb-20">
-                                     <SectionTopContent title={t('common.our-volunteers')} paragraph={t('paragraphs.volunteers')}/>             
-                                     {!data._loaded.includes('volunteers') && <ItemsLoader/>} 
-                                     {data._loaded.includes('volunteers') && <VolunteerList volunteers={data._volunteers.data || []}/>}
-                                     <BasicPagination goTo={()=>data._scrollToSection('move_after_pagination')} center={true} color={true} show={data._loaded.includes('volunteers')} from={'volunteers'} setCurrentPage={setCurrentPage} total={data._volunteers?.total}  current={data._volunteers?.page} last={data._volunteers?.totalPages}/>
-                            </section>
+       <DefaultLayout>
+            <PagesHero  img={'img-1'} name={t('common.see-our-volunteers')}/>
+            <div className="relative bg-white">
+                  <section className="pb-20">
+                              <SectionTopContent title={t('common.our-volunteers')} paragraph={t('paragraphs.volunteers')}/>             
+                              {!data._loaded.includes('volunteers') && <ItemsLoader/>} 
+                              {data._loaded.includes('volunteers') && <VolunteerList volunteers={data._volunteers.data || []}/>}
+                              <BasicPagination goTo={()=>data._scrollToSection('move_after_pagination')} center={true} color={true} show={data._loaded.includes('volunteers')} from={'volunteers'} setCurrentPage={setCurrentPage} total={data._volunteers?.total}  current={data._volunteers?.page} last={data._volunteers?.totalPages}/>
+                  </section>
 
-                       </div>
-              </DefaultLayout>
-
+            </div>
+       </DefaultLayout>
      </>
   );
 }

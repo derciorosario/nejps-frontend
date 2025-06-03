@@ -67,7 +67,7 @@ export default function DefaultAdminLayout({children,addBtn,hide,refresh}) {
                     }}>
                     <div className="text-rose-600 text-[20px] font-bold">❤️</div>
                     <div className="mr-2">
-                        <div className="text-lg font-bold">Abraço Sereno</div>
+                        <div className="text-lg font-bold">Amar é Servir</div>
                     </div>
                     </div>
                     </a>

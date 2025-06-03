@@ -85,7 +85,7 @@ function Header({}) {
             }}>
               <div className="text-rose-600 text-2xl font-bold">❤️</div>
               <div className="mr-2">
-                <div className="text-lg font-bold">Abraço Sereno</div>
+                <div className="text-lg font-bold">Amar é Servir</div>
                 <div className="text-xs text-rose-600">{t('common.slogan')}</div>
               </div>
             </div>
