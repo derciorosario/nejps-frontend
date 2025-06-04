@@ -10,6 +10,7 @@
         "events":"Eventos"
     },
     "paragraphs":{
+       "next-campaign":"Estamos a preparar a nossa próxima acção solidária. Contamos com o seu apoio para continuar a transformar vidas por meio da empatia e generosidade.",
        "volunteers":"Capazes e cheios de esperança. Nenhuma timidez impede que enfrentem desafios; sua dedicação transforma tudo ao redor. Suas ações, guiadas por educação e compaixão, têm impacto duradouro. Estão sempre prontos a ajudar, espalhando alegria e esperança por onde passam.",
        "campaigns":"As nossas campanhas têm como objetivo mobilizar apoio para causas importantes que fazem a diferença na vida das pessoas mais necessitadas. A sua contribuição pode transformar vidas e levar esperança a quem mais precisa.",
        "gallery":"Explore nossa galeria e veja o impacto real das nossas campanhas e eventos. Cada imagem conta a história de pessoas que, com o seu apoio, puderam melhorar suas vidas.",
@@ -32,9 +33,10 @@
           "raised": "Arrecadado"
     },   
     "common":{
-        "go-back":"Volar",
+        "next-campaign":"Próxima Campanha",
+        "go-back":"Voltar",
         "our-volunteers":"Nossos Voluntários",
-        "see-our-volunteers":"Conheça nosso volunteers",
+        "see-our-volunteers":"Conheça nossos voluntários",
         "read-more":"Ler mais",
         "campaign-details":"Detalhes da campanha",
         "some-donations":"Algumas doações",
@@ -67,7 +69,7 @@
         "insert-email":"Insira o email",
         "invalid-email":"Email inválido",
         "message-sent-successfull":"Mensagem enviada com sucesso",
-        "fill-all-required-fills":"Empreecha todos os campos obrigatórios",
+        "fill-all-required-fills":"Preencha todos os campos obrigatórios",
         "phone":"Número de contacto",
         "leave-a-message":"Deixe sua mensagem",
         "name":"Nome",

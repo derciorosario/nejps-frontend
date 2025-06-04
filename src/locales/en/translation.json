@@ -10,13 +10,13 @@
         "events": "Events"
     },
     "paragraphs": {
+        "next-campaign":"We are preparing our next solidarity campaign. We count on your support to continue transforming lives through empathy and generosity.",
         "campaigns": "Our campaigns aim to mobilize support for important causes that make a difference in the lives of those most in need. Your contribution can transform lives and bring hope to those who need it most.",
         "gallery": "Explore our gallery and see the real impact of our campaigns and events. Each image tells the story of people who, with your support, were able to improve their lives.",
         "causes": "Our campaigns aim to mobilize support for important causes that make a difference in the lives of those most in need. Your contribution can transform lives and bring hope to those who need it most.",
         "events": "We organize events to raise funds and promote awareness about various social issues. Join us and be part of events that create a positive impact in our community.",
         "donations": "Your donations are essential for us to continue our mission. With your help, we can reach more people and provide the necessary support to improve lives and create opportunities for those who need it most."
     },
-    
    "charityStats": {
         "title": {
         "pre": "We have already carried out",
@@ -31,6 +31,7 @@
         "raised": "Raised"
     },
     "common": {
+    "next-campaign":"Next campaign",
     "go-back":"Go back",
     "our-causes":"Our causes",
     "our-volunteers":"Our volunteers",
@@ -83,7 +84,8 @@
     "thanks-for-your-feedback": "Thank you for supporting our cause",
     "share-your-option": "Your feedback is essential to expand our impact",
     "news-letter-text":"Please write your email and get our amazing updates, news and support",
-    "slogan": "No one is young forever",
+    "slogan": "",
+    "_slogan":"No one is young forever",
     "developed-by": "Developed by",
     "all-right-reserved": "All rights reserved",
     "talk-to-us": "Talk to us",
@@ -122,6 +124,5 @@
     "about-subtitle": "With love and dedication, we work to make a difference in the lives of those who need it most.",
     "about-footer-content": "We are an organization dedicated to supporting the most vulnerable, offering resources, care, and a watchful eye on the needs of each person.",
     "about-paragraph": "We are a small part of the Roman Catholic youth, as well as people of goodwill, united by friendship beyond the walls of our churches, who decided to materialize the gift of Charity towards others without distinction of Race, color, religion, ethnicity, or political belief."
-
     }
 }

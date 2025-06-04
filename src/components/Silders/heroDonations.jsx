@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Slider from "react-slick";
 import {
   ChevronLeft,
@@ -13,15 +13,16 @@ import "slick-carousel/slick/slick-theme.css";
 import i18next, { t } from "i18next";
 import { useData } from "../../contexts/DataContext";
 import { useLocation, useNavigate } from "react-router-dom";
+import SectionTopContent from "../Section/sectionTopContent";
 
 export default function HeroDonations({YouTubeVideoLink,setYouTubeVideoLink,showDonationDialog,setShowDonationDialog,showHowToDonateDialog, setShowHowToDonateDialog}) {
   
   const data=useData()
-  const hasMultiple = (data._home_campaigns.data || []).length > 1;
+  const nextCampaigns=(data._home_campaigns.data || []).filter(i=>i.status=="in-process" || i.status=="occurring");
+  const hasMultiple = (data._home_campaigns.data || []).length > 1 && (nextCampaigns.length!=1);
   const navigate=useNavigate()
   const {pathname} = useLocation()
-  
-
+ 
   const settings = {
     infinite: hasMultiple,
     speed: 700,
@@ -42,13 +43,17 @@ export default function HeroDonations({YouTubeVideoLink,setYouTubeVideoLink,show
       </div>
     ),
  };
+
   
   
   return (
     <div className="font-sans py-10">
+
+      {nextCampaigns.length!=0 && <SectionTopContent title={t('common.next-campaign')} paragraph={t('paragraphs.next-campaign')}/>  }                     
       <div className="max-w-6xl mx-auto relative md:px-5  overflow-hidden">
+        
         <Slider {...settings}>
-          {((data._home_campaigns.data || []).filter((_,_i)=>_i <= 2)).map((campaign, index) => {
+          {(nextCampaigns.length!=0 ? nextCampaigns : (data._home_campaigns.data || []).filter((_,_i)=>_i <= 2) ).map((campaign, index) => {
               let raised=campaign.donations.map(item => parseFloat(item.amount || 0)).reduce((acc, curr) => acc + curr, 0)
               if(campaign.insert_amount_raised_manually){
                  raised=parseFloat(campaign.raised || 0)
@@ -86,7 +91,7 @@ export default function HeroDonations({YouTubeVideoLink,setYouTubeVideoLink,show
                   </div>
                   <div className="p-8">
                         <p className="text-rose-600 font-semibold uppercase text-sm mb-1">
-                           {t('common.recent-campaigns')}
+                           {nextCampaigns.length ? t('common.next-campaign') : t('common.recent-campaigns')}
                         </p>
                         <h2 className="text-2xl font-bold text-gray-80-2">
                           {campaign[`title_`+i18next.language]}
