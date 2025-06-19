@@ -50,8 +50,7 @@ export default function CreateAdminDonations({hideLayout,itemToShow,setItemToSho
     if(
        !form.date ||
        !form.payment_method ||
-       !form.amount ||
-       !form.proof 
+       !form.amount 
     ){
        v=false
     }
@@ -188,7 +187,7 @@ console.log({form})
           bottomContent={(
               <div>
                   <div className="mt-5">
-                    {(itemToEditLoaded || !itemToShow?.update_id) && <FileInput r={true}  _upload={{key:'proof',filename:form.proof}} res={handleUploadedFiles} label={'Comprovativo'}/>}
+                    {(itemToEditLoaded || !itemToShow?.update_id) && <FileInput  _upload={{key:'proof',filename:form.proof}} res={handleUploadedFiles} label={'Comprovativo'}/>}
                   </div>
               </div>
           )}
@@ -217,7 +216,6 @@ console.log({form})
           <FormLayout.Input 
               verified_inputs={verified_inputs} 
               form={form}
-              r={true}
               selectOptions={data._donors_list.map(i=>({...i,value:i.id}))}
               onBlur={() => setVerifiedInputs([...verified_inputs, 'donor_id'])} 
               label={'Doador'} 

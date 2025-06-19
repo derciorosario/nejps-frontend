@@ -98,7 +98,7 @@ export default function AdminDonations({hideLayout,itemToShow,setItemToShow}) {
                          </BaiscTable.Td>
 
                          <BaiscTable.Td onClick={()=>globalOnclick(i.id)}>{i.id}</BaiscTable.Td>
-                         <BaiscTable.Td onClick={()=>globalOnclick(i.id)}>{i.donor.name || '-'}</BaiscTable.Td>
+                         <BaiscTable.Td onClick={()=>globalOnclick(i.id)}>{i.donor?.name || '-'}</BaiscTable.Td>
                          <BaiscTable.Td onClick={()=>globalOnclick(i.id)}>{data._cn(i.amount)}</BaiscTable.Td>
                          <BaiscTable.Td onClick={()=>globalOnclick(i.id)}>{
                                   i.payment_method === "cash" ? "Em numerário" :

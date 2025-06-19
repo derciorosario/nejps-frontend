@@ -127,7 +127,7 @@ export default function Dashboard() {
                                
                                 <div class="flex-1 min-w-0">
                                    <p class="text-sm font-medium text-gray-900 truncate">
-                                      {i.donor.name || 'Anonimato'}
+                                      {i.donor?.name || 'Anonimato'}
                                    </p>
                                    <p class="text-sm text-gray-500 truncate">
                                       {i.campaign['title_pt']}

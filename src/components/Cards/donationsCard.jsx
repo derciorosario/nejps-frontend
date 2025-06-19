@@ -104,7 +104,7 @@ export default function DonationCards({oneComumn,showOne,donations=[],loading}) 
                     {!donation.donor && <User className="w-4 h-4 mr-1" />}
                     {t('common.by')}:
                    
-                    <label className="ml-1">{donation.donor ? donation.donor.name : t('common.anonymous')}</label>
+                    <label className="ml-1">{donation?.donor ? donation?.donor?.name : t('common.anonymous')}</label>
 
                 </div>
                 {donation.proof && <div className="flex items-center text-sm text-gray-600 mt-1">
