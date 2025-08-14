@@ -33,7 +33,11 @@ import CreateAdminDonors from './admin/pages/donors/create'
 import Events from './pages/events/index'
 import AdminVolunteers from './admin/pages/volunteers/index'
 import CreateAdminVolunteers from './admin/pages/volunteers/create'
+import AdminAudios from './admin/pages/audios/index'
+import AdminHomilies from './admin/pages/homilies/index'
 
+import Audios from './pages/audios/index'
+import Homilies from './pages/homilies/index'
 
 function App() {
   return (
@@ -42,6 +46,15 @@ function App() {
           <Route path="/"  element={<Home/>} />
           <Route path="/dashboard"  element={<ProtectedRoute redirectTo="/login"><AdminDashboard/></ProtectedRoute>} />
           <Route path="/login"  element={<Login/>} />
+
+          <Route path="/homilies"  element={<ProtectedRoute redirectTo="/login"> <Homilies/> </ProtectedRoute>} />
+          <Route path="/audios"  element={<ProtectedRoute redirectTo="/login"> <Audios/> </ProtectedRoute>} />
+
+          <Route path="/admin/homilies"  element={<ProtectedRoute redirectTo="/login"> <AdminHomilies/> </ProtectedRoute>} />
+          <Route path="/admin/audios"  element={<ProtectedRoute redirectTo="/login"> <AdminAudios/> </ProtectedRoute>} />
+
+          <Route path="/admin/homilies"  element={<ProtectedRoute redirectTo="/login"> <AdminAudios/> </ProtectedRoute>} />
+          <Route path="/admin/audios"  element={<ProtectedRoute redirectTo="/login"> <AdminAudios/> </ProtectedRoute>} />
           <Route path="/admin/campaigns/create"  element={<ProtectedRoute redirectTo="/login"> <CreateAdminCampaign/> </ProtectedRoute>} />
           <Route path="/admin/campaign/:id"  element={<ProtectedRoute redirectTo="/login"> <CreateAdminCampaign/> </ProtectedRoute>} />
           <Route path="/admin/campaigns"  element={<ProtectedRoute redirectTo="/login"><AdminCampaigns/></ProtectedRoute>}/>

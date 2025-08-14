@@ -17,7 +17,10 @@ import {
     Newspaper,
     User,
     Users,
-    InfoIcon
+    InfoIcon,
+    Music,
+    Video,
+    VideoIcon
 } from "lucide-react";
 import { useLocation, useNavigate } from "react-router-dom";
 import Delete from "../components/modals/delete";
@@ -165,6 +168,28 @@ export default function DefaultAdminLayout({children,addBtn,hide,refresh}) {
                                 <span className={`ml-3 flex-1 whitespace-nowrap ${pathname.includes('/admin/volunteer') || pathname.includes('/admin/volunteer/update') ? 'font-semibold':''}`}>Voluntários</span>
                              </a>
                           </li> 
+
+
+                          <li>
+                             <a onClick={()=>{
+                                navigate('/admin/audios')
+                             }} className="text-base cursor-pointer text-gray-900 font-normal rounded-lg hover:bg-gray-100 flex items-center p-2 group ">
+                                 <Music className="flex-shrink-0" size={24} />
+                                <span className={`ml-3 flex-1 whitespace-nowrap ${pathname.includes('/admin/audios') ? 'font-semibold':''}`}>Audios</span>
+                             </a>
+                          </li> 
+
+
+
+                          <li>
+                             <a onClick={()=>{
+                                navigate('/admin/homilies')
+                             }} className="text-base cursor-pointer text-gray-900 font-normal rounded-lg hover:bg-gray-100 flex items-center p-2 group ">
+                                 <VideoIcon className="flex-shrink-0" size={24} />
+                                <span className={`ml-3 flex-1 whitespace-nowrap ${pathname.includes('/admin/homilies') ? 'font-semibold':''}`}>Homilia Diária</span>
+                             </a>
+                          </li> 
+
 
                           <li>
                              <a onClick={()=>{

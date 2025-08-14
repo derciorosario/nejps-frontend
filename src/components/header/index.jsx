@@ -27,6 +27,8 @@ function Header({}) {
       { name: t('menu.about-us'), path: '/?about', field: 'about' },
       { name: t('menu.campaigns'), path: '/campaigns', field: 'campaigns' },
      // { name: t('menu.donations'), path: '/donations', field: 'donations' },
+      { name: t('menu.daily-audios'), path: '/audios', field: 'campaigns' },
+      { name: t('menu.homilies'), path: '/homilies', field: 'campaigns' },
       { name: t('menu.contact'), path: '/contact', field: 'contact' },
     ]);
   }, [i18next.language]);

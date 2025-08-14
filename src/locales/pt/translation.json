@@ -7,7 +7,13 @@
         "contact":"Contacto",
         "campaigns":"Campanhas",
         "donations":"Doações",
-        "events":"Eventos"
+        "events":"Eventos",
+        "daily-audios":"Evangelhos",
+        "homilies":"Homilias"
+    },
+    "pagination":{
+        "previous":"Anterior",
+        "next":"Próximo"
     },
     "paragraphs":{
        "next-campaign":"Estamos a preparar a nossa próxima acção solidária. Contamos com o seu apoio para continuar a transformar vidas por meio da empatia e generosidade.",
@@ -16,7 +22,11 @@
        "gallery":"Explore nossa galeria e veja o impacto real das nossas campanhas e eventos. Cada imagem conta a história de pessoas que, com o seu apoio, puderam melhorar suas vidas.",
        "causes":"As nossas campanhas têm como objetivo mobilizar apoio para causas importantes que fazem a diferença na vida das pessoas mais necessitadas. A sua contribuição pode transformar vidas e levar esperança a quem mais precisa.",
        "events":"Organizamos eventos para angariar fundos e promover a conscientização sobre diversas questões sociais. Junte-se a nós e faça parte de eventos que geram impacto positivo na nossa comunidade.",
-       "donations":"As suas doações são fundamentais para que possamos continuar a nossa missão. Com a sua ajuda, conseguimos alcançar mais pessoas e oferecer o apoio necessário para melhorar vidas e criar oportunidades para quem mais precisa."
+       "donations":"As suas doações são fundamentais para que possamos continuar a nossa missão. Com a sua ajuda, conseguimos alcançar mais pessoas e oferecer o apoio necessário para melhorar vidas e criar oportunidades para quem mais precisa.",
+       "evangelical-messages":"Compartilhamos palavras de fé e inspiração que fortalecem o espírito e encorajam a vivência de valores cristãos no dia a dia. Cada mensagem é um convite para refletir, orar e espalhar amor ao próximo.",
+       "homily-messages":"As nossas homilias oferecem ensinamentos e reflexões baseadas na Palavra de Deus, guiando a comunidade em sua caminhada espiritual. Elas buscam iluminar a mente e o coração, promovendo fé, esperança e transformação pessoal.",
+       "daily-content":"As nossas homilias e mensagens do dia oferecem reflexões e ensinamentos baseados na Palavra de Deus, guiando a comunidade na sua caminhada espiritual. Cada conteúdo é pensado para iluminar a mente e o coração, promovendo fé, esperança e transformação pessoal."
+
     },
 
     "charityStats": {
@@ -33,6 +43,14 @@
           "raised": "Arrecadado"
     },   
     "common":{
+        "daily-content":"Inspiração Diária",
+        "search":"Pesquisar",
+        "noResults":"Sem resultados",
+        "clearSearch":"Limpar pesquisa",
+        "untitled":"Sem título",
+        "watch":"Assistir video",
+        "daily-audios":"Evangelhos",
+        "homilies":"Homilias",
         "next-campaign":"Próxima Campanha",
         "go-back":"Voltar",
         "our-volunteers":"Nossos Voluntários",

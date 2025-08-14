@@ -18,6 +18,7 @@ import DonationsDialog from '../../components/Dialogs/donations-dialog';
 import HowToDonateDialog from '../../components/Dialogs/how-to-donate-dialog';
 import VolunteersSlider from '../../components/Silders/volunteersSlider';
 import CharityStats from '../../components/Section/CharityStats';
+import DailyContentSection from '../../components/Cards/TodaysContent';
 
 
 function App({}) {
@@ -199,6 +200,16 @@ const heroContent = [
                               <span  className="ml-2"><svg className={`-rotate-90`} xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#fff"><path d="m480-340 180-180-57-56-123 123-123-123-57 56 180 180Zm0 260q-83 0-156-31.5T197-197q-54-54-85.5-127T80-480q0-83 31.5-156T197-763q54-54 127-85.5T480-880q83 0 156 31.5T763-763q54 54 85.5 127T880-480q0 83-31.5 156T763-197q-54 54-127 85.5T480-80Zm0-80q134 0 227-93t93-227q0-134-93-227t-227-93q-134 0-227 93t-93 227q0 134 93 227t227 93Zm0-320Z"/></svg></span>
                           </button>}
                        </section>}
+
+
+                        <section id="#" className="bg-gray-100 pb-20">
+                         <SectionTopContent title={t('common.daily-content')} paragraph={t('paragraphs.daily-content')}/>
+                         <DailyContentSection/>
+                       </section>
+
+
+
+
 
                        {(data._home_events.data || []).length!=0 && <section id="events" className="bg-white pb-20">
                           <SectionTopContent title={t('common.our-events')} paragraph={t('paragraphs.events')}/>

@@ -23,7 +23,6 @@ export const AuthProvider = ({ children }) => {
         setLoading(false)
         return
       }
-
       try {
         
         let response=await makeRequest({method:'get', url:`api/user`, error: ``,withToken:true},0);
@@ -48,7 +47,6 @@ export const AuthProvider = ({ children }) => {
 
 
     const logout=async () => {
-
       try {
         await localStorage.removeItem('token')
         return { success: true };

@@ -7,7 +7,13 @@
         "contact": "Contact",
         "campaigns": "Campaigns",
         "donations": "Donations",
-        "events": "Events"
+        "events": "Events",
+        "daily-audios":"Gospels",
+        "homilies":"Homilies"
+    },
+      "pagination":{
+        "previous":"Previous",
+        "next":"Next"
     },
     "paragraphs": {
         "next-campaign":"We are preparing our next solidarity campaign. We count on your support to continue transforming lives through empathy and generosity.",
@@ -15,7 +21,10 @@
         "gallery": "Explore our gallery and see the real impact of our campaigns and events. Each image tells the story of people who, with your support, were able to improve their lives.",
         "causes": "Our campaigns aim to mobilize support for important causes that make a difference in the lives of those most in need. Your contribution can transform lives and bring hope to those who need it most.",
         "events": "We organize events to raise funds and promote awareness about various social issues. Join us and be part of events that create a positive impact in our community.",
-        "donations": "Your donations are essential for us to continue our mission. With your help, we can reach more people and provide the necessary support to improve lives and create opportunities for those who need it most."
+        "donations": "Your donations are essential for us to continue our mission. With your help, we can reach more people and provide the necessary support to improve lives and create opportunities for those who need it most.",
+        "evangelical-messages":"We share words of faith and inspiration that strengthen the spirit and encourage the practice of Christian values in daily life. Each message is an invitation to reflect, pray, and spread love to others.",
+        "homily-messages":"Our homilies offer teachings and reflections based on the Word of God, guiding the community in its spiritual journey. They aim to enlighten the mind and heart, promoting faith, hope, and personal transformation.",
+        "daily-content":"Our daily homilies and messages provide reflections and teachings based on the Word of God, guiding the community in its spiritual journey. Each content is designed to enlighten the mind and heart, promoting faith, hope, and personal transformation."
     },
    "charityStats": {
         "title": {
@@ -31,6 +40,14 @@
         "raised": "Raised"
     },
     "common": {
+    "daily-content":"Daily inspiration",
+    "search":"Search",
+    "noResults":"No results",
+    "clearSearch":"Clear search",
+    "untitled":"Untitled",
+    "watch":"Watch video",
+    "daily-audios":"Gospels",
+    "homilies":"Homilies",
     "next-campaign":"Next campaign",
     "go-back":"Go back",
     "our-causes":"Our causes",
