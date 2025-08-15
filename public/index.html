@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Evangelho do Dia</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .upload-container {
+            border: 2px dashed #ccc;
+            padding: 20px;
+            text-align: center;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+        #file-input {
+            display: none;
+        }
+        .upload-btn {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            margin-right: 10px;
+        }
+        .upload-btn:hover {
+            background-color: #45a049;
+        }
+        #file-name {
+            margin-top: 10px;
+            font-style: italic;
+        }
+        #status {
+            margin-top: 20px;
+            padding: 10px;
+            border-radius: 4px;
+            display: none;
+        }
+        .success {
+            background-color: #dff0d8;
+            color: #3c763d;
+        }
+        .error {
+            background-color: #f2dede;
+            color: #a94442;
+        }
+        .warning {
+            background-color: #fcf8e3;
+            color: #8a6d3b;
+        }
+        .description-fields {
+            display: none;
+            margin-top: 20px;
+            padding: 15px;
+            background-color: #f9f9f9;
+            border-radius: 5px;
+        }
+        .description-fields input, 
+        .description-fields textarea {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        .description-fields label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        .add-desc-btn {
+            background-color: #2196F3;
+            color: white;
+            padding: 8px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+        .add-desc-btn:hover {
+            background-color: #0b7dda;
+        }
+        .button-group {
+            margin-top: 20px;
+        }
+        .config-info {
+            font-size: 12px;
+            color: #666;
+            margin-top: 30px;
+            padding: 10px;
+            background-color: #f5f5f5;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Evangelho do Dia</h1>
+    
+    <div class="upload-container">
+        <p>Selecione o arquivo de áudio para enviar:</p>
+        <input type="file" id="file-input" accept="audio/*">
+        <button class="upload-btn" id="select-file-btn">Selecionar Arquivo</button>
+        <div id="file-name">Nenhum arquivo selecionado</div>
+        
+        <div class="button-group">
+            <button class="add-desc-btn" id="add-desc-btn">
+                <i class="fas fa-plus-circle"></i> Adicionar Descrição
+            </button>
+        </div>
+        
+        <div class="description-fields" id="description-fields">
+            <label for="title_pt">Título:</label>
+            <input type="text" id="title_pt" name="title_pt" placeholder="Opcional">
+            
+            <label for="description_pt">Descrição:</label>
+            <textarea id="description_pt" name="description_pt" rows="3" placeholder="Opcional"></textarea>
+        </div>
+    </div>
+    
+    <button class="upload-btn" id="upload-btn" disabled>Enviar Áudio</button>
+    
+    <div id="status"></div>
+
+    <div class="config-info" style="display: none !important;">
+        <p><strong>Configuração do Servidor:</strong> Conectando a <span id="server-url-display"></span></p>
+    </div>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Server configuration
+            const SERVER_URL = 'https://nejps-server.derflash.com/';
+            const API_ENDPOINT = 'api/audios';
+
+            // DOM elements
+            const elements = {
+                fileInput: document.getElementById('file-input'),
+                selectFileBtn: document.getElementById('select-file-btn'),
+                fileNameDisplay: document.getElementById('file-name'),
+                uploadBtn: document.getElementById('upload-btn'),
+                statusDiv: document.getElementById('status'),
+                addDescBtn: document.getElementById('add-desc-btn'),
+                descriptionFields: document.getElementById('description-fields'),
+                serverUrlDisplay: document.getElementById('server-url-display'),
+                titlePt: document.getElementById('title_pt'),
+                descriptionPt: document.getElementById('description_pt')
+            };
+
+            // Verify all elements exist
+            for (const [key, element] of Object.entries(elements)) {
+                if (!element) {
+                    console.error(`Element not found: ${key}`);
+                    return;
+                }
+            }
+
+            // Display server URL
+            elements.serverUrlDisplay.textContent = SERVER_URL + API_ENDPOINT;
+
+            let showDescription = false;
+            
+            // Event listeners
+            elements.selectFileBtn.addEventListener('click', function() {
+                elements.fileInput.click();
+            });
+            
+           
+            elements.fileInput.addEventListener('change', function() {
+                if (this.files && this.files[0]) {
+                    const file = this.files[0];
+
+                    // Verificar se é um arquivo de áudio
+                    if (!file.type.startsWith('audio/')) {
+                        showStatus('Apenas arquivos de áudio são permitidos!', 'error');
+                        elements.fileInput.value = ''; // limpar input
+                        elements.fileNameDisplay.textContent = 'Nenhum arquivo selecionado';
+                        elements.uploadBtn.disabled = true;
+                        return;
+                    }
+
+                    elements.fileNameDisplay.textContent = file.name;
+                    elements.uploadBtn.disabled = false;
+                } else {
+                    elements.fileNameDisplay.textContent = 'Nenhum arquivo selecionado';
+                    elements.uploadBtn.disabled = true;
+                }
+            });
+
+            
+            elements.addDescBtn.addEventListener('click', function() {
+                showDescription = !showDescription;
+                elements.descriptionFields.style.display = showDescription ? 'block' : 'none';
+                elements.addDescBtn.innerHTML = showDescription 
+                    ? '<i class="fas fa-minus-circle"></i> Remover Descrição' 
+                    : '<i class="fas fa-plus-circle"></i> Adicionar Descrição';
+            });
+            
+            elements.uploadBtn.addEventListener('click', async function() {
+                const file = elements.fileInput.files[0];
+                
+                if (!file) {
+                    showStatus('Por favor, selecione um arquivo de áudio antes de enviar.', 'warning');
+                    return;
+                }
+                
+                elements.uploadBtn.disabled = true;
+                elements.uploadBtn.textContent = 'Enviando...';
+                
+                try {
+                    const formData = new FormData();
+                    formData.append('audio', file);
+                    
+                    if (showDescription) {
+                        if (elements.titlePt.value) formData.append('title_pt', elements.titlePt.value);
+                        if (elements.descriptionPt.value) formData.append('description_pt', elements.descriptionPt.value);
+                    }
+                    
+                    const response = await fetch(SERVER_URL + API_ENDPOINT, {
+                        method: 'POST',
+                        body: formData
+                    });
+                    
+                    if (response.ok) {
+                        const result = await response.json();
+                        showStatus('Áudio enviado com sucesso!', 'success');
+                        resetForm();
+                    } else {
+                        const error = await response.json();
+                        throw new Error(error.message || 'Erro no upload');
+                    }
+                } catch (err) {
+                    showStatus(`Erro: ${err.message}`, 'error');
+                    console.error('Upload error:', err);
+                } finally {
+                    elements.uploadBtn.disabled = false;
+                    elements.uploadBtn.textContent = 'Enviar Áudio';
+                }
+            });
+            
+            function showStatus(message, type) {
+                elements.statusDiv.textContent = message;
+                elements.statusDiv.className = type;
+                elements.statusDiv.style.display = 'block';
+                
+                setTimeout(() => {
+                    elements.statusDiv.style.display = 'none';
+                }, 5000);
+            }
+            
+            function resetForm() {
+                elements.fileInput.value = '';
+                elements.fileNameDisplay.textContent = 'Nenhum arquivo selecionado';
+                elements.titlePt.value = '';
+                elements.descriptionPt.value = '';
+                
+                if (showDescription) {
+                    showDescription = false;
+                    elements.descriptionFields.style.display = 'none';
+                    elements.addDescBtn.innerHTML = '<i class="fas fa-plus-circle"></i> Adicionar Descrição';
+                }
+            }
+        });
+    </script>
+</body>
+</html>

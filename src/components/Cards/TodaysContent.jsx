@@ -164,7 +164,7 @@ const DailyContentSection = () => {
                       allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                       allowFullScreen
                       className="w-full h-64 rounded-lg"
-                      title={i18next.language === 'pt' ? homily.title_pt : homily.title_en}
+                      title={i18next.language === 'pt' ? homily.title_pt : homily.title_en || homily.title_pt}
                     ></iframe>
                   </div>
                   <a
