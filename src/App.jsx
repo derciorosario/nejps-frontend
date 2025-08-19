@@ -47,8 +47,8 @@ function App() {
           <Route path="/dashboard"  element={<ProtectedRoute redirectTo="/login"><AdminDashboard/></ProtectedRoute>} />
           <Route path="/login"  element={<Login/>} />
 
-          <Route path="/homilies"  element={<ProtectedRoute redirectTo="/login"> <Homilies/> </ProtectedRoute>} />
-          <Route path="/audios"  element={<ProtectedRoute redirectTo="/login"> <Audios/> </ProtectedRoute>} />
+          <Route path="/homilies"  element={ <Homilies/> } />
+          <Route path="/audios"  element={ <Audios/> } />
 
           <Route path="/admin/homilies"  element={<ProtectedRoute redirectTo="/login"> <AdminHomilies/> </ProtectedRoute>} />
           <Route path="/admin/audios"  element={<ProtectedRoute redirectTo="/login"> <AdminAudios/> </ProtectedRoute>} />
