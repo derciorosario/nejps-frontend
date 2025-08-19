@@ -145,7 +145,7 @@ const AudioListPage = () => {
             >
               <div className="p-6">
                 <h2 className="text-xl font-bold mb-2 text-rose-600">
-                  {audio[`title_${i18n.language}`] || t('audioGallery.untitled')}
+                  {audio[`title_${i18n.language}`] || t('common.untitled')}
                 </h2>
                 {audio[`description_${i18n.language}`] && (
                   <p className="mb-4 text-gray-700">
